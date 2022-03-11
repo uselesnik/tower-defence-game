@@ -1,21 +1,35 @@
+#include <iostream>
 #include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
 
+#include "Enemy.h"
 int main()
 {
-    sf::Window window(sf::VideoMode(800, 600), "My window");
-
-    // run the program as long as the window is open
+    //nastavljanje spremenjlivk
+    sf::RenderWindow window(sf::VideoMode(800, 600), "tower defence game");
+    window.setFramerateLimit(60);
+    Enemy enemy;
+    enemy.setup();
+   
+    // program traja dokler je okno odprto
     while (window.isOpen())
     {
-        // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
         while (window.pollEvent(event))
         {
-            // "close requested" event: we close the window
             if (event.type == sf::Event::Closed)
                 window.close();
+            if (event.type == sf::Event::Resized)
+                std::cout << "window size x: " << event.size.width << " , y: " << event.size.height << "\n";
         }
+        enemy.followPath();
+
+        //risanje na ekran
+        window.clear(sf::Color(48, 199, 65, 255));
+        window.draw(enemy.getSprite());
+        window.display();
     }
 
     return 0;
-}
+    }
