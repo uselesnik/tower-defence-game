@@ -22,8 +22,10 @@ int main()
                 window.close();
             if (event.type == sf::Event::Resized)
                 std::cout << "window size x: " << event.size.width << " , y: " << event.size.height << "\n";
+
         }
-        enemy.followPath();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) enemy.followPath();
+        
 
         //risanje na ekran
         window.clear(sf::Color(48, 199, 65, 255));
