@@ -57,7 +57,7 @@ void Enemy::setup()
 	this->path[1] = sf::Vector2f(0.0, 400);
 	this->path[2] = sf::Vector2f(-400.0, 0.0);
 	this->path[3] = sf::Vector2f(0, -400.0);
-	this->path[4] = sf::Vector2f(800.0, 600.0);
+	this->path[4] = sf::Vector2f(700.0, 500.0);
 
 	this->hyp = sqrt(powf(path[0].x, 2) + powf(path[0].y, 2));
 

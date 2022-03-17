@@ -4,12 +4,18 @@
 #include <SFML/System.hpp>
 
 #include "Enemy.h"
+#include "EnemyManager.h"
+
+
 int main()
+
 {
+    EnemyManager<Enemy> emananger;
     //nastavljanje spremenjlivk
     sf::RenderWindow window(sf::VideoMode(800, 600), "tower defence game");
     window.setFramerateLimit(60);
     Enemy enemy;
+    emananger.vnos(enemy);
     enemy.setup();
    
     // program traja dokler je okno odprto
@@ -24,12 +30,12 @@ int main()
                 std::cout << "window size x: " << event.size.width << " , y: " << event.size.height << "\n";
 
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) enemy.followPath();
+        enemy.followPath();
         
 
         //risanje na ekran
         window.clear(sf::Color(48, 199, 65, 255));
-        window.draw(enemy.getSprite());
+       // emananger.loop(window);
         window.display();
     }
 

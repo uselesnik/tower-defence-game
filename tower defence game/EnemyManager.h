@@ -1,30 +1,27 @@
 #pragma once
 #include "Enemy.h"
 
-struct listobject {
+template <typename T>
 
-};
+
 
 class EnemyManager
 {
-	/*
-		template <typename T>
-struct Uhu {
-    Uhu* nasl, *prej;
-    T data;
-}; 
+    struct  listObject {
+        listObject* nasl, * prej;
+        T data;
+    };
 
-template <typename T>
-Uhu<T> *start;
-template <typename T>
-Uhu<T>* zaklj;
+    listObject* start;
+    listObject* zaklj;
+public:
 
-template <typename T>
-bool preverjanje() {
-    if (start<T> == nullptr) std::cout << "uhu\n";
-    else std::cout << "spremenjeno\n";
-    return 1;
-}
+    void vnos(T value);
+    void loop(sf::RenderWindow window);
+
+/*
+
+
 
 template <typename T>
 void vnos(T value) {
