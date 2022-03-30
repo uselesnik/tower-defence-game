@@ -4,13 +4,13 @@
 #include <SFML/System.hpp>
 
 #include "Enemy.h"
-#include "EnemyManager.h"
+#include "ListManager.h"
 
 
 int main()
 
 {
-    EnemyManager<Enemy> emananger;
+    ListManager<Enemy> emananger;
     //nastavljanje spremenjlivk
     sf::RenderWindow window(sf::VideoMode(800, 600), "tower defence game");
     window.setFramerateLimit(60);

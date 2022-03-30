@@ -3,9 +3,7 @@
 
 template <typename T>
 
-
-
-class EnemyManager
+class ListManager
 {
     struct  listObject {
         listObject* nasl, * prej;
@@ -17,7 +15,9 @@ class EnemyManager
 public:
 
     void vnos(T value);
-    void loop(sf::RenderWindow window);
+   // void loop(sf::RenderWindow window);
+};
+
 
 /*
 
@@ -52,5 +52,24 @@ void loop() {
 
 	*/
 
-};
+template<typename T>
+void ListManager<T>::vnos(T value)
+{
+    listObject* novi = new listObject;
+    novi->data = value;
+    if (start == nullptr && zaklj == nullptr) {
+        start = novi;
+        zaklj = novi;
+        novi->prej = NULL;
+        novi->nasl = NULL;
 
+    }
+    else {
+
+        start->prej = novi;
+        novi->nasl = start;
+        novi->prej = NULL;
+        start = novi;
+
+    }
+}
