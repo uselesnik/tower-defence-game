@@ -3,4 +3,5 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
-#include<string>
+#include <SFML/Audio.hpp>
+#include <string>
