@@ -10,12 +10,23 @@
 int main()
 
 {
-    ListManager<Enemy> emananger;
+    ListManager<int> emananger;
+    emananger.vnos(4);
+    emananger.vnos(5);
+    emananger.vnos(6);
+    emananger.loop();
+    ListManager<char> r;
+    r.vnos('g');
+    r.vnos('a');
+    r.vnos('p');
+    r.loop();
+
+
     //nastavljanje spremenjlivk
     sf::RenderWindow window(sf::VideoMode(800, 600), "tower defence game");
     window.setFramerateLimit(60);
     Enemy enemy;
-    emananger.vnos(enemy);
+
     enemy.setup();
    
     // program traja dokler je okno odprto

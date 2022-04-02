@@ -13,9 +13,13 @@ class ListManager
     listObject* start;
     listObject* zaklj;
 public:
+ 
+    ListManager();
+    ~ListManager();
+
 
     void vnos(T value);
-   // void loop(sf::RenderWindow window);
+    void loop();
 };
 
 
@@ -43,21 +47,45 @@ void vnos(T value) {
         std::cout << "zdej pa mas memory leak ;)\n";
     }
 }
-template <typename T>
-void loop() {
-    for (Uhu<T>* temp = start<T>; temp != NULL; temp = temp->nasl) {
-        std::cout << temp->data << " ";
-    }
+*/
+
+
+	// metode so definirane tukaj ker linker ne more povezati classa s templati do .cpp datoteke (VS error 2001)
+
+template<typename T>
+ListManager<T>::ListManager()
+{
+    start = NULL;
+    zaklj = NULL;
 }
 
-	*/
+template<typename T>
+ListManager<T>::~ListManager()
+{
+    while (start != NULL && zaklj != NULL) {
+
+        if (start == zaklj) //zbrise zadnji element
+        {
+            std::cout << "deliting(z): " << start->data << "\n";
+            delete start;
+            start = zaklj = NULL;
+        }
+        else 
+        {
+            start = start->nasl;
+            std::cout << "deliting: " << start->prej->data<< "\n";
+            delete start->prej;
+            start->prej = NULL;
+        }
+    }
+}
 
 template<typename T>
 void ListManager<T>::vnos(T value)
 {
     listObject* novi = new listObject;
     novi->data = value;
-    if (start == nullptr && zaklj == nullptr) {
+    if (start == nullptr && zaklj == nullptr) { //vstavljamo v prazen list
         start = novi;
         zaklj = novi;
         novi->prej = NULL;
@@ -73,3 +101,12 @@ void ListManager<T>::vnos(T value)
 
     }
 }
+
+template<typename T>
+void ListManager<T>::loop()
+{
+    for (listObject* temp = start; temp != NULL; temp = temp->nasl) {
+        std::cout << temp->data << " ";
+    }
+}
+
