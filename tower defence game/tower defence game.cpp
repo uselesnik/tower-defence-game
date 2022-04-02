@@ -1,8 +1,4 @@
-#include <iostream>
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-
+#include"pch.h" //precompiled header, kjer je includan sfml, iostream in string
 #include "Enemy.h"
 #include "ListManager.h"
 
