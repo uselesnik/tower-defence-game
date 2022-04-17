@@ -3,13 +3,17 @@
 #include "ListManager.h"
 #include "Enemy.h"
 class Window
+
 {
+	bool spawn;
 	sf::RenderWindow* window;
 	sf::Event event;
 public:
 
 	Window();
 	~Window();
+
+	bool getSpawn();
 
 	bool open();
 

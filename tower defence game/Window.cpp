@@ -2,6 +2,7 @@
 
 Window::Window()
 {
+    spawn = 0;
 	window = new sf::RenderWindow(sf::VideoMode(800, 600), "tower defence game");
 	window->setFramerateLimit(60);
 }
@@ -9,6 +10,11 @@ Window::Window()
 Window::~Window()
 {
 	delete window;
+}
+
+bool Window::getSpawn()
+{
+    return spawn;
 }
 
 bool Window::open()
@@ -24,6 +30,8 @@ void Window::update()
             window->close();
         if (event.type == sf::Event::Resized)
             std::cout << "window size x: " << event.size.width << " , y: " << event.size.height << "\n";
+        if (event.type == sf::Event::Closed or event.key.code == sf::Keyboard::Enter)
+            spawn = !spawn;
 
     }
 

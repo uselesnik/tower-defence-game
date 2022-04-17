@@ -35,9 +35,9 @@ int main()
 
         
         window.renderList(test);
-        window.renderSprite(enemy.getSprite());
+        
         window.render();
-        test.vnos(enemy);
+        if (window.getSpawn())test.vnos(enemy);
         
 
         //risanje na ekran
