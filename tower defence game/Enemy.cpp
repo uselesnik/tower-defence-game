@@ -9,6 +9,7 @@ Enemy::Enemy()
 	this->speed = 0.0;
 	this->pathpoint = 0;
 	this->hyp = 0;
+
 }
 
 Enemy::~Enemy()
@@ -21,6 +22,7 @@ sf::Sprite Enemy::getSprite()
 {
 	return this->sprite;
 }
+
 // other
 
 void Enemy::followPath()

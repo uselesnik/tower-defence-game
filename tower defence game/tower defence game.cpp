@@ -3,9 +3,14 @@
 #include "ListManager.h"
 #include "Window.h"
 
+
+
+int ListManager<Enemy>::steviloObj;
+
 int main()
 
 {
+    ListManager<Enemy>::setStObj(0);
 
 
 
@@ -14,16 +19,25 @@ int main()
     Enemy enemy;
 
     enemy.setup();
-   
+    ListManager<Enemy> test;
+    test.setStObj(1);
+    test.vnos(enemy);
+    
+    //window.renderList(test);
     // program traja dokler je okno odprto
     while (window.open())
     {
 
         window.update();
+        for (ListManager<Enemy>::listObject* temp = test.start; temp != NULL; temp = temp->nasl) {
+            temp->data.followPath();
+        }
 
-        enemy.followPath();
+        
+        window.renderList(test);
         window.renderSprite(enemy.getSprite());
         window.render();
+        test.vnos(enemy);
         
 
         //risanje na ekran

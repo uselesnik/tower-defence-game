@@ -5,49 +5,30 @@ template <typename T>
 
 class ListManager
 {
+    
+public:
     struct  listObject {
         listObject* nasl, * prej;
         T data;
     };
 
-    listObject* start;
-    listObject* zaklj;
-public:
+    static int steviloObj;
  
     ListManager();
     ~ListManager();
-
+    
+ 
+    static void setStObj(int i);
+    static int getStObj();
 
     void vnos(T value);
-    void loop();
+    
+
+    listObject* start;
+    listObject* zaklj;
 };
 
 
-/*
-
-
-
-template <typename T>
-void vnos(T value) {
-    Uhu<T>* novi = new Uhu<T>;
-    novi->data = value;
-    if (start<T> == nullptr && zaklj<T> == nullptr) {
-        start<T> = novi;
-        zaklj<T> = novi;
-        novi->prej = NULL;
-        novi->nasl = NULL;
-        std::cout << "zacetni\n";
-    }
-    else {
-     
-        start<T>->prej = novi;
-        novi->nasl = start<T>;
-        novi->prej = NULL;
-        start<T> = novi;
-        std::cout << "zdej pa mas memory leak ;)\n";
-    }
-}
-*/
 
 
 	// metode so definirane tukaj ker linker ne more povezati classa s templati do .cpp datoteke (VS error 2001)
@@ -55,6 +36,7 @@ void vnos(T value) {
 template<typename T>
 ListManager<T>::ListManager()
 {
+    steviloObj++;
     start = NULL;
     zaklj = NULL;
 }
@@ -62,22 +44,42 @@ ListManager<T>::ListManager()
 template<typename T>
 ListManager<T>::~ListManager()
 {
-    while (start != NULL && zaklj != NULL) {
+   if (steviloObj > 1) {
+        steviloObj--;
+    }
+    else {
+        steviloObj--;
+        while (start != NULL && zaklj != NULL) {
 
-        if (start == zaklj) //zbrise zadnji element
-        {
-            std::cout << "deliting(z): " << start->data << "\n";
-            delete start;
-            start = zaklj = NULL;
-        }
-        else 
-        {
-            start = start->nasl;
-            std::cout << "deliting: " << start->prej->data<< "\n";
-            delete start->prej;
-            start->prej = NULL;
+            if (start == zaklj) //zbrise zadnji element
+            {
+                std::cout << "deliting(z):  \n";
+                delete start;
+                start = zaklj = NULL;
+
+            }
+            else
+            {
+                start = start->nasl;
+                std::cout << "deliting: \n";
+                delete start->prej;
+                start->prej = NULL;
+            }
         }
     }
+}
+
+
+template<typename T>
+void ListManager<T>::setStObj(int i)
+{
+    steviloObj = i;
+}
+
+template<typename T>
+int ListManager<T>::getStObj()
+{
+    return steviloObj;
 }
 
 template<typename T>
@@ -102,11 +104,5 @@ void ListManager<T>::vnos(T value)
     }
 }
 
-template<typename T>
-void ListManager<T>::loop()
-{
-    for (listObject* temp = start; temp != NULL; temp = temp->nasl) {
-        std::cout << temp->data << " ";
-    }
-}
+
 
