@@ -5,14 +5,15 @@ template <typename T>
 
 class ListManager
 {
-    
+    unsigned long int idAssigner;
+    static int steviloObj;
+   // unsigned 
 public:
     struct  listObject {
         listObject* nasl, * prej;
         T data;
+        unsigned long int id;
     };
-
-    static int steviloObj;
  
     ListManager();
     ~ListManager();
@@ -22,8 +23,7 @@ public:
     static int getStObj();
 
     void vnos(T value);
-    
-
+   
     listObject* start;
     listObject* zaklj;
 };
@@ -36,6 +36,7 @@ public:
 template<typename T>
 ListManager<T>::ListManager()
 {
+    idAssigner = 0;
     steviloObj++;
     start = NULL;
     zaklj = NULL;
@@ -53,7 +54,7 @@ ListManager<T>::~ListManager()
 
             if (start == zaklj) //zbrise zadnji element
             {
-                std::cout << "deliting(z):  \n";
+                std::cout << "deliting(z):  "<< start->id <<"\n";
                 delete start;
                 start = zaklj = NULL;
 
@@ -61,7 +62,7 @@ ListManager<T>::~ListManager()
             else
             {
                 start = start->nasl;
-                std::cout << "deliting: \n";
+                std::cout << "deliting:  " << start->prej->id << "\n";
                 delete start->prej;
                 start->prej = NULL;
             }
@@ -86,6 +87,8 @@ template<typename T>
 void ListManager<T>::vnos(T value)
 {
     listObject* novi = new listObject;
+    novi->id = idAssigner;
+    idAssigner++;
     novi->data = value;
     if (start == nullptr && zaklj == nullptr) { //vstavljamo v prazen list
         start = novi;

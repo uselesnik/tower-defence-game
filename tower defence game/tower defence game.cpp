@@ -3,16 +3,16 @@
 #include "ListManager.h"
 #include "Window.h"
 
-
-
 int ListManager<Enemy>::steviloObj;
 
-int main()
+void updateEnemyPath(ListManager<Enemy>::listObject* temp) {
+    if (temp == NULL) return;
+    temp->data.followPath();
+    updateEnemyPath(temp->nasl);
+}
 
-{
+int main(){
     ListManager<Enemy>::setStObj(0);
-
-
 
     //nastavljanje spremenjlivk
     Window window;
@@ -20,31 +20,19 @@ int main()
 
     enemy.setup();
     ListManager<Enemy> test;
-    test.setStObj(1);
     test.vnos(enemy);
     
     //window.renderList(test);
     // program traja dokler je okno odprto
-    while (window.open())
-    {
-
+    while (window.open()){
         window.update();
-        for (ListManager<Enemy>::listObject* temp = test.start; temp != NULL; temp = temp->nasl) {
-            temp->data.followPath();
-        }
-
+        
+        updateEnemyPath(test.start);
         
         window.renderList(test);
         
         window.render();
         if (window.getSpawn())test.vnos(enemy);
-        
-
-        //risanje na ekran
-             // window.clear(sf::Color(48, 199, 65, 255));
-       // emananger.loop(window);
-            //window.display();
     }
-
     return 0;
-    }
+}

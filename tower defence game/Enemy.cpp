@@ -41,7 +41,6 @@ void Enemy::followPath()
 			this->sprite.move(sf::Vector2f(cos(alpha) * hyp * predzn, sin(alpha) * hyp));
 			//premakne se do konca trenutne poti
 			pathpoint++;//gre na naslednje mesto v arrayu
-			std::cout <<"nasl\n";
 			if (pathpoint < 5) hyp = sqrt(powf(path[pathpoint].x, 2) + powf(path[pathpoint].y, 2)); // izracuna hipotenuzo za naslednje mesto
 		}
 	}
