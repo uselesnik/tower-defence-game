@@ -24,7 +24,7 @@ int main(){
 
     enemy.setup();
     ListManager<Enemy> enemyList;
-    
+    enemyList.vnos(enemy);
     // program traja dokler je okno odprto
     while (window.open()){
         window.update();
