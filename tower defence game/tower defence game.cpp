@@ -5,12 +5,6 @@
 
 int ListManager<Enemy>::steviloObj;
 
-void updateEnemyPath(ListManager<Enemy>::listObject* temp) {
-    if (temp == NULL) return;
-    temp->data.followPath();
-    updateEnemyPath(temp->nasl);
-}
-
 int main(){
     ListManager<Enemy>::setStObj(0);
 
@@ -19,20 +13,22 @@ int main(){
     Enemy enemy;
 
     enemy.setup();
-    ListManager<Enemy> test;
-    test.vnos(enemy);
+    ListManager<Enemy> enemyList;
+    enemyList.vnos(enemy);
     
-    //window.renderList(test);
     // program traja dokler je okno odprto
     while (window.open()){
         window.update();
         
-        updateEnemyPath(test.start);
-        
-        window.renderList(test);
+        //updateEnemyPath(test.start);
+        for (ListManager<Enemy>::listObject* temp = enemyList.start; temp != NULL; temp = temp->nasl) {
+            if(!temp->data.followPath()) enemyList.delite(temp->id);
+        }
+
+        window.renderList(enemyList);
         
         window.render();
-        if (window.getSpawn())test.vnos(enemy);
+        if (window.getSpawn())enemyList.vnos(enemy);
     }
     return 0;
 }

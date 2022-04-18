@@ -25,7 +25,7 @@ sf::Sprite Enemy::getSprite()
 
 // other
 
-void Enemy::followPath()
+bool Enemy::followPath()
 {
 	 //za stetje na katerem elementu tabele poti smo
 	if (pathpoint < 5) {
@@ -43,10 +43,9 @@ void Enemy::followPath()
 			pathpoint++;//gre na naslednje mesto v arrayu
 			if (pathpoint < 5) hyp = sqrt(powf(path[pathpoint].x, 2) + powf(path[pathpoint].y, 2)); // izracuna hipotenuzo za naslednje mesto
 		}
+		return  1;
 	}
-	else {
-		//ga izbrise
-	}
+	return 0;
 }
 
 

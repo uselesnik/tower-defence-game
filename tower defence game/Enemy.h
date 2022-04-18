@@ -1,5 +1,6 @@
 #pragma once
 #include"pch.h"
+#include <SFML/Graphics/Color.hpp>
 
 
 class Enemy
@@ -27,7 +28,7 @@ public:
 
 
 	//other methods
-	void followPath();
+	bool followPath();
 	void setup();
 
 };

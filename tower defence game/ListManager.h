@@ -23,13 +23,11 @@ public:
     static int getStObj();
 
     void vnos(T value);
-   
+    bool delite(unsigned long int x);
+
     listObject* start;
     listObject* zaklj;
 };
-
-
-
 
 	// metode so definirane tukaj ker linker ne more povezati classa s templati do .cpp datoteke (VS error 2001)
 
@@ -105,6 +103,42 @@ void ListManager<T>::vnos(T value)
         start = novi;
 
     }
+}
+
+template<typename T>
+bool ListManager<T>::delite(unsigned long int x)
+{
+
+    if (start == zaklj && start != NULL && start->id == x){
+        std::cout << "deliting(z): " << start->id << "\n";
+        delete start;
+        start = zaklj = NULL;
+        return 1;
+    }
+    if (zaklj->id == x) {
+        zaklj = zaklj->prej;
+        std::cout << "deliting: " << zaklj->nasl->id << "\n";
+        delete zaklj->nasl;
+        zaklj->nasl = NULL;
+        return 1;
+    }
+    if (zaklj->id == x) {
+        start = start->nasl;
+        std::cout << "deliting: " << start->prej->id << "\n";
+        delete start->prej;
+        start->prej = NULL;
+        return 1;
+    }
+    listObject* temp;
+    for (temp = zaklj; temp != NULL; temp = temp->prej);//gre od zadaj naprej ker veckrat brisemo zadnji element na listu
+    if (temp != NULL) { //element obstaja
+        temp->nasl->prej = temp->prej;
+        temp->prej->nasl = temp->nasl;
+        std::cout << "deliting: " << temp->id << "\n";
+        delete temp;
+        return 1;
+    }
+    return 0;
 }
 
 
