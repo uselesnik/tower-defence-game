@@ -28,7 +28,7 @@ sf::Sprite Enemy::getSprite()
 bool Enemy::followPath()
 {
 	 //za stetje na katerem elementu tabele poti smo
-	if (pathpoint < 5) {
+	if (pathpoint < 5 && pathpoint >= 0) {
 		int predzn = 0;
 		if (path[pathpoint].x != 0.0) predzn = path[pathpoint].x / abs(path[pathpoint].x); //da dobimo ali je v x os pozitivna ali negativna st ( ker je cosinus soda funkcija i think)
 		
@@ -58,6 +58,12 @@ void Enemy::setup()
 	this->path[2] = sf::Vector2f(-650.0, 0.0);
 	this->path[3] = sf::Vector2f(100, 200.0);
 	this->path[4] = sf::Vector2f(600.0, 0.0);
+
+	/*this->path[0] = sf::Vector2f(1, 0.0);
+	this->path[1] = sf::Vector2f(1, 0.0);
+	this->path[2] = sf::Vector2f(1, 0.0);
+	this->path[3] = sf::Vector2f(1, 0.0);
+	this->path[4] = sf::Vector2f(1, 0.0);*/
 
 	this->hyp = sqrt(powf(path[0].x, 2) + powf(path[0].y, 2));
 

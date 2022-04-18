@@ -115,6 +115,9 @@ bool ListManager<T>::delite(unsigned long int x)
         start = zaklj = NULL;
         return 1;
     }
+    listObject* temp;
+    for (temp = zaklj; temp != NULL && temp->id != x; temp = temp->prej);//gre od zadaj naprej ker veckrat brisemo zadnji element na listu
+   
     if (zaklj->id == x) {
         zaklj = zaklj->prej;
         std::cout << "deliting: " << zaklj->nasl->id << "\n";
@@ -122,15 +125,13 @@ bool ListManager<T>::delite(unsigned long int x)
         zaklj->nasl = NULL;
         return 1;
     }
-    if (zaklj->id == x) {
+    if (start->id == x) {
         start = start->nasl;
         std::cout << "deliting: " << start->prej->id << "\n";
         delete start->prej;
         start->prej = NULL;
         return 1;
     }
-    listObject* temp;
-    for (temp = zaklj; temp != NULL; temp = temp->prej);//gre od zadaj naprej ker veckrat brisemo zadnji element na listu
     if (temp != NULL) { //element obstaja
         temp->nasl->prej = temp->prej;
         temp->prej->nasl = temp->nasl;

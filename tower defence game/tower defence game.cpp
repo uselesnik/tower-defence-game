@@ -2,8 +2,18 @@
 #include "Enemy.h"
 #include "ListManager.h"
 #include "Window.h"
+#include <vector>
 
 int ListManager<Enemy>::steviloObj;
+
+void deliteEnemies(std::vector<unsigned long int> &x, ListManager<Enemy> &list) {
+    //list.setStObj(list.getStObj()+1);
+    while (x.size() > 0) {
+        
+        list.delite(x.back());
+        x.pop_back();
+    }
+}
 
 int main(){
     ListManager<Enemy>::setStObj(0);
@@ -14,17 +24,16 @@ int main(){
 
     enemy.setup();
     ListManager<Enemy> enemyList;
-    enemyList.vnos(enemy);
     
     // program traja dokler je okno odprto
     while (window.open()){
         window.update();
         
-        //updateEnemyPath(test.start);
+        std::vector<unsigned long int> idZaIzbris;
         for (ListManager<Enemy>::listObject* temp = enemyList.start; temp != NULL; temp = temp->nasl) {
-            if(!temp->data.followPath()) enemyList.delite(temp->id);
+            if (!temp->data.followPath()) idZaIzbris.push_back(temp->id);    
         }
-
+        if (idZaIzbris.size() > 0) deliteEnemies(idZaIzbris, enemyList);
         window.renderList(enemyList);
         
         window.render();
