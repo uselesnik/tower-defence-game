@@ -6,15 +6,6 @@
 
 int ListManager<Enemy>::steviloObj;
 
-void deliteEnemies(std::vector<unsigned long int> &x, ListManager<Enemy> &list) {
-    //list.setStObj(list.getStObj()+1);
-    while (x.size() > 0) {
-        
-        list.delite(x.back());
-        x.pop_back();
-    }
-}
-
 int main(){
     ListManager<Enemy>::setStObj(0);
 
@@ -26,14 +17,28 @@ int main(){
     ListManager<Enemy> enemyList;
     enemyList.vnos(enemy);
     // program traja dokler je okno odprto
-    while (window.open()){
+    while (window.open()) {
         window.update();
-        
-        std::vector<unsigned long int> idZaIzbris;
+
+  
         for (ListManager<Enemy>::listObject* temp = enemyList.start; temp != NULL; temp = temp->nasl) {
-            if (!temp->data.followPath()) idZaIzbris.push_back(temp->id);    
+            if (!temp->data.followPath()) { //pomeni da je na koncu poti in ga je potrebno izbrisati
+                if (temp == enemyList.start && temp == enemyList.zaklj) { // zadnji element v listu
+                    enemyList.delite(temp->id);
+                    break;
+                }
+                else if (temp == enemyList.start) { // prvi element v listu ampak ni edini
+                    temp = temp->nasl;
+                    enemyList.delite(temp->prej->id);
+                }
+                else {
+                    temp = temp->prej;
+                    enemyList.delite(temp->nasl->id); //idZaIzbris.push_back(temp->id);    
+
+                }
+            }
         }
-        if (idZaIzbris.size() > 0) deliteEnemies(idZaIzbris, enemyList);
+
         window.renderList(enemyList);
         
         window.render();
