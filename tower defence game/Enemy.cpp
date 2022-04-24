@@ -50,9 +50,9 @@ bool Enemy::followPath()
 }
 
 
-void Enemy::setup()
+void Enemy::setup(int i)
 {
-	this->speed = 12.0;
+	
 
 	this->path[0] = sf::Vector2f(600, 0.0);
 	this->path[1] = sf::Vector2f(100.0, 200);
@@ -68,6 +68,19 @@ void Enemy::setup()
 
 	this->hyp = sqrt(powf(path[0].x, 2) + powf(path[0].y, 2));
 
-	this->texture.loadFromFile("volleyball.png");
+	switch (i) {
+	case 1:
+		this->texture.loadFromFile("volleyball.png");
+		this->sprite.setTexture(texture);
+		this->speed = 4.0;
+		break;
+	case 2:
+		this->texture.loadFromFile("football.png");
+		this->sprite.setTexture(texture);
+		this->speed = 5.0;
+		break;
+	}
+	/*this->texture.loadFromFile("volleyball.png");
 	this->sprite.setTexture(texture);
+	this->speed = 4.0;*/
 }

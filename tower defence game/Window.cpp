@@ -43,8 +43,6 @@ void Window::update()
 
 void Window::render()
 {
-   
-
     window->display();
 }
 
@@ -53,8 +51,4 @@ void Window::renderSprite(sf::Sprite sprite)
     window->draw(sprite);
 }
 
-void Window::renderEnemy()
-{
-    std::cout << "uhu";
-}
 

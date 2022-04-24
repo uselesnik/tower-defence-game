@@ -29,7 +29,7 @@ public:
 
 	//other methods
 	bool followPath();
-	void setup();
+	void setup(int i);
 
 };
 

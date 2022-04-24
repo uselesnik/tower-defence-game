@@ -7,20 +7,22 @@
 int ListManager<Enemy>::steviloObj;
 
 int main(){
+    
     ListManager<Enemy>::setStObj(0);
 
     //nastavljanje spremenjlivk
     Window window;
-    Enemy enemy;
-
-    enemy.setup();
+    Enemy enemy, enemy2;
+    enemy.setup(1);
+    enemy2.setup(2);
+    sf::Clock clock;
     ListManager<Enemy> enemyList;
     enemyList.vnos(enemy);
+
     // program traja dokler je okno odprto
+    
     while (window.open()) {
         window.update();
-
-  
         for (ListManager<Enemy>::listObject* temp = enemyList.start; temp != NULL; temp = temp->nasl) {
             if (!temp->data.followPath()) { //pomeni da je na koncu poti in ga je potrebno izbrisati
                 if (temp == enemyList.start && temp == enemyList.zaklj) { // zadnji element v listu
@@ -42,7 +44,12 @@ int main(){
         window.renderList(enemyList);
         
         window.render();
-        if (window.getSpawn())enemyList.vnos(enemy);
+        if (clock.getElapsedTime().asMilliseconds() > 700) {
+            enemyList.vnos(enemy2);
+            enemyList.vnos(enemy);
+            clock.restart();
+        };
+        
     }
     return 0;
 }
