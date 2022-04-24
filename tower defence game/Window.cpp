@@ -1,4 +1,6 @@
+#include "pch.h"
 #include "Window.h"
+
 
 Window::Window()
 {
@@ -30,7 +32,7 @@ void Window::update()
             window->close();
         if (event.type == sf::Event::Resized)
             std::cout << "window size x: " << event.size.width << " , y: " << event.size.height << "\n";
-        if (event.type == sf::Event::Closed or event.key.code == sf::Keyboard::Enter)
+        if (event.key.code == sf::Keyboard::Enter)
             spawn = !spawn;
 
     }
