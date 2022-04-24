@@ -52,7 +52,7 @@ ListManager<T>::~ListManager()
 
             if (start == zaklj) //zbrise zadnji element
             {
-                std::cout << "deliting(z):  "<< start->id <<"\n";
+               // std::cout << "deliting(z):  "<< start->id <<"\n";
                 delete start;
                 start = zaklj = NULL;
 
@@ -60,7 +60,7 @@ ListManager<T>::~ListManager()
             else
             {
                 start = start->nasl;
-                std::cout << "deliting:  " << start->prej->id << "\n";
+                //std::cout << "deliting:  " << start->prej->id << "\n";
                 delete start->prej;
                 start->prej = NULL;
             }
@@ -110,7 +110,7 @@ bool ListManager<T>::delite(unsigned long int x)
 {
 
     if (start == zaklj && start != NULL && start->id == x){
-        std::cout << "deliting(z): " << start->id << "\n";
+       // std::cout << "deliting(z): " << start->id << "\n";
         delete start;
         start = zaklj = NULL;
         return 1;
@@ -120,14 +120,14 @@ bool ListManager<T>::delite(unsigned long int x)
    
     if (zaklj->id == x) {
         zaklj = zaklj->prej;
-        std::cout << "deliting: " << zaklj->nasl->id << "\n";
+       // std::cout << "deliting: " << zaklj->nasl->id << "\n";
         delete zaklj->nasl;
         zaklj->nasl = NULL;
         return 1;
     }
     if (start->id == x) {
         start = start->nasl;
-        std::cout << "deliting: " << start->prej->id << "\n";
+       // std::cout << "deliting: " << start->prej->id << "\n";
         delete start->prej;
         start->prej = NULL;
         return 1;
@@ -135,7 +135,7 @@ bool ListManager<T>::delite(unsigned long int x)
     if (temp != NULL) { //element obstaja
         temp->nasl->prej = temp->prej;
         temp->prej->nasl = temp->nasl;
-        std::cout << "deliting: " << temp->id << "\n";
+        //std::cout << "deliting: " << temp->id << "\n";
         delete temp;
         return 1;
     }

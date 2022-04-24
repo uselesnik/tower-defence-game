@@ -28,13 +28,18 @@ void Window::update()
 {
     while (window->pollEvent(event))
     {
-        if (event.type == sf::Event::Closed or event.key.code == sf::Keyboard::Escape)
+        sf::Vector2i mousePosition;
+        
+        if (event.type == sf::Event::Closed){
+            std::cout << "exited";
             window->close();
-        if (event.type == sf::Event::Resized)
-            std::cout << "window size x: " << event.size.width << " , y: " << event.size.height << "\n";
-        if (event.key.code == sf::Keyboard::Enter)
-            spawn = !spawn;
+        }
 
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            mousePosition = sf::Mouse::getPosition(*window);
+            std::cout << mousePosition.x / 50 << "\t" << mousePosition.y / 50 << "\t";
+        }
+        
     }
 
 
