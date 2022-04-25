@@ -162,6 +162,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pch.h</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="Placeable.cpp" />
     <ClCompile Include="tower defence game.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -169,6 +170,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="ListManager.h" />
+    <ClInclude Include="Placeable.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

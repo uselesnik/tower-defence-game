@@ -5,15 +5,14 @@
 class Window
 
 {
-	bool spawn;
 	sf::RenderWindow* window;
-	sf::Event event;
+	sf::Vector2i mouseClickLocation;
 public:
 
 	Window();
 	~Window();
 
-	bool getSpawn();
+	sf::Vector2i getMouseClickLocation();
 
 	bool open();
 
@@ -23,7 +22,7 @@ public:
 	void update();
 	void render();
 	void renderSprite(sf::Sprite sprite);
-	void renderEnemy();
+	
 
 };
 

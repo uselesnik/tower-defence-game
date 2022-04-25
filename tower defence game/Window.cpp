@@ -4,9 +4,10 @@
 
 Window::Window()
 {
-    spawn = 0;
 	window = new sf::RenderWindow(sf::VideoMode(800, 600), "tower defence game");
 	window->setFramerateLimit(60);
+    mouseClickLocation.x = -1;
+    mouseClickLocation.y = -1;
 }
 
 Window::~Window()
@@ -14,9 +15,9 @@ Window::~Window()
 	delete window;
 }
 
-bool Window::getSpawn()
+sf::Vector2i Window::getMouseClickLocation()
 {
-    return spawn;
+    return mouseClickLocation;
 }
 
 bool Window::open()
@@ -26,6 +27,7 @@ bool Window::open()
 
 void Window::update()
 {
+    sf::Event event;
     while (window->pollEvent(event))
     {
         sf::Vector2i mousePosition;
@@ -37,9 +39,14 @@ void Window::update()
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             mousePosition = sf::Mouse::getPosition(*window);
-            std::cout << mousePosition.x / 50 << "\t" << mousePosition.y / 50 << "\t";
+           // std::cout << mousePosition.x / 50 << "\t" << mousePosition.y / 50 << "\t";
+            if ((mousePosition.x >= 0 && mousePosition.x <= 800) && (mousePosition.y >= 0 && mousePosition.y <= 600)) mouseClickLocation = mousePosition;
+
         }
-        
+        else {
+            mouseClickLocation.x = -1;
+            mouseClickLocation.y = -1;
+        }
     }
 
 

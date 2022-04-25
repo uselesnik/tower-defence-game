@@ -70,12 +70,12 @@ void Enemy::setup(int i)
 
 	switch (i) {
 	case 1:
-		this->texture.loadFromFile("volleyball.png");
+		this->texture.loadFromFile("images\\volleyball.png");
 		this->sprite.setTexture(texture);
 		this->speed = 4.0;
 		break;
 	case 2:
-		this->texture.loadFromFile("football.png");
+		this->texture.loadFromFile("images\\football.png");
 		this->sprite.setTexture(texture);
 		this->speed = 5.0;
 		break;
