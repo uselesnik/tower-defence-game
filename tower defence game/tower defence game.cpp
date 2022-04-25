@@ -51,13 +51,13 @@ int main(){
 
         if (window.getMouseClickLocation().x > -1 && window.getMouseClickLocation().y > -1) {
             Placeable* p = new Placeable;
-            p->place(float(window.getMouseClickLocation().x), float(window.getMouseClickLocation().y));
+            p->place(float(window.getMouseClickLocation().x / 50 * 50 + 25), float(window.getMouseClickLocation().y / 50 * 50 + 25));
             placeableList.vnos(*p);
         }
 
-
-        window.renderList(enemyList);
         window.renderList(placeableList);
+        window.renderList(enemyList);
+       
         
         window.render();
         if (clock.getElapsedTime().asMilliseconds() > 1400) {
