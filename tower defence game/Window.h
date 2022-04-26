@@ -7,6 +7,8 @@ class Window
 {
 	sf::RenderWindow* window;
 	sf::Vector2i mouseClickLocation;
+	sf::Texture texture;
+	sf::Sprite bg;
 public:
 
 	Window();

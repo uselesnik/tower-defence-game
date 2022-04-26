@@ -4,14 +4,17 @@
 #include "Window.h"
 #include <vector>
 #include"Placeable.h"
+
 int ListManager<Enemy>::steviloObj;
 int ListManager<Placeable>::steviloObj;
+bool Placeable::prosto[12][16];
 
 int main(){
     
     ListManager<Enemy>::setStObj(0);
     ListManager<Placeable>::setStObj(0);
-
+    Placeable::initProsto();
+    Placeable::coutProsto();
     //nastavljanje spremenjlivk
     
 
@@ -29,6 +32,7 @@ int main(){
     // program traja dokler je okno odprto
     
     while (window.open()) {
+
         window.update();
 
         for (ListManager<Enemy>::listObject* temp = enemyList.start; temp != NULL; temp = temp->nasl) {
@@ -48,11 +52,14 @@ int main(){
                 }
             }
         }
-
+        
         if (window.getMouseClickLocation().x > -1 && window.getMouseClickLocation().y > -1) {
-            Placeable* p = new Placeable;
-            p->place(float(window.getMouseClickLocation().x / 50 * 50 + 25), float(window.getMouseClickLocation().y / 50 * 50 + 25));
-            placeableList.vnos(*p);
+            std::cout << window.getMouseClickLocation().x / 50 << "\t" << window.getMouseClickLocation().y / 50 << "\n";
+            if (Placeable::jeProsto( window.getMouseClickLocation().y / 50, window.getMouseClickLocation().x / 50)){
+                Placeable* p = new Placeable;
+                p->place(float(window.getMouseClickLocation().x / 50 * 50 + 25), float(window.getMouseClickLocation().y / 50 * 50 + 25));
+                 placeableList.vnos(*p);
+            }
         }
 
         window.renderList(placeableList);
@@ -60,8 +67,8 @@ int main(){
        
         
         window.render();
-        if (clock.getElapsedTime().asMilliseconds() > 1400) {
-            enemyList.vnos(enemy2);
+        if (clock.getElapsedTime().asMilliseconds() > 400) {
+            enemyList.vnos(enemy);
             
             clock.restart();
         };

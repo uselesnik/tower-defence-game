@@ -4,10 +4,13 @@
 
 Window::Window()
 {
+    
 	window = new sf::RenderWindow(sf::VideoMode(800, 600), "tower defence game");
 	window->setFramerateLimit(60);
     mouseClickLocation.x = -1;
     mouseClickLocation.y = -1;
+    texture.loadFromFile("images\\bg.png");
+    bg.setTexture(texture);
 }
 
 Window::~Window()
@@ -39,7 +42,7 @@ void Window::update()
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             mousePosition = sf::Mouse::getPosition(*window);
-           // std::cout << mousePosition.x / 50 << "\t" << mousePosition.y / 50 << "\t";
+           // std::cout << mousePosition.x / 50 << "\t" << mousePosition.y / 50 << "\n";
             if ((mousePosition.x >= 0 && mousePosition.x <= 800) && (mousePosition.y >= 0 && mousePosition.y <= 600)) mouseClickLocation = mousePosition;
 
         }
@@ -51,6 +54,7 @@ void Window::update()
 
 
     window->clear(sf::Color(48, 199, 65, 255));
+    window->draw(bg);
 }
 
 void Window::render()
