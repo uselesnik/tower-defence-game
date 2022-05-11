@@ -30,16 +30,16 @@ bool Enemy::followPath()
 {
 	 //za stetje na katerem elementu tabele poti smo
 	if (pathpoint < 5 && pathpoint >= 0) {
-		int predzn = 0;
-		if (path[pathpoint].x != 0.0) predzn = path[pathpoint].x / abs(path[pathpoint].x); //da dobimo ali je v x os pozitivna ali negativna st ( ker je cosinus soda funkcija i think)
-		
+		int predznx = 0, predzny = 0;
+		if (path[pathpoint].x != 0.0) predznx = path[pathpoint].x / abs(path[pathpoint].x); //da dobimo predznak x in y
+		if (path[pathpoint].y != 0.0) predzny = path[pathpoint].y / abs(path[pathpoint].y);
 		float alpha = atan(path[pathpoint].y / path[pathpoint].x);
 		if (hyp - speed > 0) { //pomeni da se ni na koncu trenutnega dela poti
-			this->sprite.move(sf::Vector2f(cos(alpha) * speed * predzn, sin(alpha) * speed));//trigonometrija  
+			this->sprite.move(sf::Vector2f(cos(alpha) * speed * predznx, sin(alpha) * predzny * speed));//trigonometrija  
 			hyp -= speed;
 		}
 		else {
-			this->sprite.move(sf::Vector2f(cos(alpha) * hyp * predzn, sin(alpha) * hyp));
+			this->sprite.move(sf::Vector2f(cos(alpha) * hyp * predznx, sin(alpha) * predzny * hyp));
 			//premakne se do konca trenutne poti
 			pathpoint++;//gre na naslednje mesto v arrayu
 			if (pathpoint < 5) hyp = sqrt(powf(path[pathpoint].x, 2) + powf(path[pathpoint].y, 2)); // izracuna hipotenuzo za naslednje mesto

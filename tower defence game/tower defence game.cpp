@@ -3,18 +3,18 @@
 #include "ListManager.h"
 #include "Window.h"
 #include <vector>
-#include"Placeable.h"
+#include "Placeable.h"
+#include "ShooterTower.h"
 
 int ListManager<Enemy>::steviloObj;
-int ListManager<Placeable>::steviloObj;
+int ListManager<ShooterTower>::steviloObj;
 bool Placeable::prosto[12][16];
 
 int main(){
     
     ListManager<Enemy>::setStObj(0);
-    ListManager<Placeable>::setStObj(0);
+    ListManager<ShooterTower>::setStObj(0);
     Placeable::initProsto();
-    Placeable::coutProsto();
     //nastavljanje spremenjlivk
     
 
@@ -26,7 +26,7 @@ int main(){
     enemy2.setup(2);
     sf::Clock clock;
     ListManager<Enemy> enemyList;
-    ListManager<Placeable> placeableList;
+    ListManager<ShooterTower> placeableList;
     
 
     // program traja dokler je okno odprto
@@ -54,11 +54,12 @@ int main(){
         }
         
         if (window.getMouseClickLocation().x > -1 && window.getMouseClickLocation().y > -1) {
-            std::cout << window.getMouseClickLocation().x / 50 << "\t" << window.getMouseClickLocation().y / 50 << "\n";
             if (Placeable::jeProsto( window.getMouseClickLocation().y / 50, window.getMouseClickLocation().x / 50)){
-                Placeable* p = new Placeable;
+                Placeable::setProsto(window.getMouseClickLocation().y / 50, window.getMouseClickLocation().x / 50, 0);
+                std::cout << "placed tile \n";
+                ShooterTower* p = new ShooterTower;
                 p->place(float(window.getMouseClickLocation().x / 50 * 50 + 25), float(window.getMouseClickLocation().y / 50 * 50 + 25));
-                 placeableList.vnos(*p);
+                placeableList.vnos(*p);
             }
         }
 

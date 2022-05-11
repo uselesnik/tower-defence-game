@@ -30,6 +30,12 @@
     <ClCompile Include="Placeable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ShooterTower.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enemy.h">
@@ -48,6 +54,12 @@
       <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="Placeable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShooterTower.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -11,16 +11,6 @@ void Placeable::place(float x, float y)
 }
 
 
-void Placeable::coutProsto()
-{
-	for (int y = 0; y < 12; y++) {
-		for (int x = 0; x < 16; x++) {
-			std::cout << prosto[y][x] << ", ";
-		}
-		std::cout << "\n";
-	}
-}
-
 void Placeable::initProsto()
 {
 	bool temp[12][16] =
@@ -59,6 +49,13 @@ bool Placeable::jeProsto(int y, int x)
 	}
 	
 	return 0; // pomeni da je vnesena vrednost napacna
+}
+
+void Placeable::setProsto(int y, int x, bool data)
+{
+	if ((x >= 0 && x < 16) && (y >= 0 && y < 12)) {
+		prosto[y][x] = data;
+	}
 }
 
 sf::Sprite Placeable::getSprite()
