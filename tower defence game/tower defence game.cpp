@@ -68,10 +68,10 @@ int main(){
        
         
         window.render();
-        if (clock.getElapsedTime().asMilliseconds() > 400) {
+        if (clock.getElapsedTime().asMilliseconds() % 400 == 0) {
             enemyList.vnos(enemy);
             
-            clock.restart();
+            //clock.restart();
         };
         
     }
