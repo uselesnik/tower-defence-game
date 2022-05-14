@@ -5,11 +5,13 @@
 Window::Window()
 {
     
-	window = new sf::RenderWindow(sf::VideoMode(800, 600), "tower defence game");
+	window = new sf::RenderWindow(sf::VideoMode(800, 600), "tower defence game", sf::Style::Close);
 	window->setFramerateLimit(60);
     mouseClickLocation.x = -1;
     mouseClickLocation.y = -1;
+    icon.loadFromFile("images\\volleyball.png");
     texture.loadFromFile("images\\bg.png");
+    window->setIcon(icon.getSize().x, icon.getSize().x, icon.getPixelsPtr());
     bg.setTexture(texture);
 }
 

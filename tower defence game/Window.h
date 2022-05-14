@@ -9,6 +9,7 @@ class Window
 	sf::Vector2i mouseClickLocation;
 	sf::Texture texture;
 	sf::Sprite bg;
+	sf::Image icon;
 public:
 
 	Window();
