@@ -1,5 +1,6 @@
 #pragma once
 #include "Enemy.h"
+#include "Bullet.h"
 
 template <typename T>
 

@@ -1,6 +1,17 @@
 #include "pch.h"
 #include "Bullet.h"
 
+
+
+Bullet::Bullet()
+{
+    texture.loadFromFile("images\\bullet.png");
+    sprite.setTexture(texture);
+    bulletDuration = 0;
+}
+   
+
+
 Bullet::Bullet(int milis, float towerX, float towerY)
 {
     texture.loadFromFile("images\\bullet");

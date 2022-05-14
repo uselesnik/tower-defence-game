@@ -5,15 +5,19 @@
 #include <vector>
 #include "Placeable.h"
 #include "ShooterTower.h"
+#include "Bullet.h"
 
 int ListManager<Enemy>::steviloObj;
 int ListManager<ShooterTower>::steviloObj;
+int ListManager<Bullet>::steviloObj;
 bool Placeable::prosto[12][16];
 
 int main(){
     
     ListManager<Enemy>::setStObj(0);
     ListManager<ShooterTower>::setStObj(0);
+    ListManager<Bullet>::setStObj(0);
+
     Placeable::initProsto();
     //nastavljanje spremenjlivk
     
@@ -25,6 +29,9 @@ int main(){
     enemy.setup(1);
     enemy2.setup(2);
     sf::Clock clock;
+    Bullet d;
+   
+    ListManager<Bullet> bulletList;
     ListManager<Enemy> enemyList;
     ListManager<ShooterTower> placeableList;
     
@@ -65,13 +72,13 @@ int main(){
 
         window.renderList(placeableList);
         window.renderList(enemyList);
-       
+        window.renderSprite(d.getSprite());
         
         window.render();
-        if (clock.getElapsedTime().asMilliseconds() % 400 == 0) {
+        if (clock.getElapsedTime().asMilliseconds() > 400) {
             enemyList.vnos(enemy);
             
-            //clock.restart();
+            clock.restart();
         };
         
     }
