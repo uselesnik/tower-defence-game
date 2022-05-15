@@ -21,7 +21,7 @@ int main() {
     //nastavljanje spremenjlivk
 
     Window window;
-    Bullet b(1000000, 20.0, 20.0, 50, 40.7);
+    Bullet b(800, 20.0, 20.0, 50, 40.7);
     Enemy enemy, enemy2;
     enemy.setup(1);
     enemy2.setup(2);
@@ -51,7 +51,7 @@ int main() {
         }
 
         for (ListManager<Bullet>::listObject* temp = bulletList.start; temp != NULL;) {
-            if (!temp->data.lifespanCheck()) { //pomeni da je na koncu poti in ga je potrebno izbrisati
+            if (temp->data.lifespanCheck()) { //pomeni da je na koncu zivljenja in ga je potrebno izbrisati
                 int premik = bulletList.delitefromLoop(temp);
                 if (premik == 0) temp = NULL;
                 else if (premik == 1) temp = temp->nasl;

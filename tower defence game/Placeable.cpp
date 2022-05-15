@@ -26,14 +26,14 @@ void Placeable::initProsto()
 		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 		0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 };
-		
+	/*
 	for (int y = 0; y < 12; y++) {
 		for (int x = 0; x < 16; x++) {
 			std::cout << temp[y][x] << ", ";
 		}
 		std::cout << "\n";
 	}
-	std::cout << "\n";
+	std::cout << "\n";*/
 
 	for (int y = 0; y < 12; y++) {
 		for (int x = 0; x < 16; x++) {

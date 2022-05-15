@@ -166,27 +166,3 @@ inline int ListManager<T>::delitefromLoop(listObject* temp)
         return 1; //return 1 pomeni naj nadaljuje z loopom
     }
 }
-
-
-/*
-template<class T>
-listObject ListManager<T>::delitefromLoop(listObject* temp)
-{
-    steviloObj++;
-
-    if (temp == start && temp == zaklj) { // edini element v listu
-        delite(temp->id);
-        return 0;
-    }
-    else if (temp == start) { // prvi element v listu ampak ni edini
-        temp = temp->nasl;
-        delite(temp->prej->id);
-        return *temp;
-    }
-    else {
-        temp = temp->prej;
-        delite(temp->nasl->id); //izbrse katerikoli ostal element
-        return *temp->nasl;
-    }
-}
-*/

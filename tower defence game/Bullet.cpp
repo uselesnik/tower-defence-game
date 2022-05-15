@@ -27,6 +27,8 @@ Bullet::Bullet(int milis, float towerX, float towerY, int angle, float speed)
 
 bool Bullet::lifespanCheck()
 {
+   // std::cout << "\ncurrent duration: " << durationClock.getElapsedTime().asMilliseconds() << " target duration: " << bulletDuration;
+
     if (durationClock.getElapsedTime().asMilliseconds() > bulletDuration) return 1;
     return 0;
 }
