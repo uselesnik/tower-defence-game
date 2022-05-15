@@ -32,6 +32,7 @@ public:
 template<class T>
 void Window::renderList(ListManager<T> list)
 {
+	
 	list.setStObj(list.getStObj() + 1);
 	for (ListManager<T>::template listObject* tren = list.start; tren != NULL; tren = tren->nasl) {
 

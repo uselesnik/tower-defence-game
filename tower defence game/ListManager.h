@@ -26,6 +26,8 @@ public:
     void vnos(T value);
     bool delite(unsigned long int x);
 
+    int delitefromLoop(listObject* temp);
+
     listObject* start;
     listObject* zaklj;
 };
@@ -109,7 +111,6 @@ void ListManager<T>::vnos(T value)
 template<typename T>
 bool ListManager<T>::delite(unsigned long int x)
 {
-
     if (start == zaklj && start != NULL && start->id == x){
        // std::cout << "deliting(z): " << start->id << "\n";
         delete start;
@@ -140,8 +141,52 @@ bool ListManager<T>::delite(unsigned long int x)
         delete temp;
         return 1;
     }
+    std::cout << "nwm";
     return 0;
 }
 
+template<typename T>
+inline int ListManager<T>::delitefromLoop(listObject* temp)
+{
+    if (temp == start && temp == zaklj) { // edini element v listu
+       // std::cout << "del.1" << temp->id;
+        delite(temp->id);
+        return 0; //return 0 pomeni da naj gre ven iz zunanjega loopa (temp = NULL)
+    }
+    else if (temp == start) { // prvi element v listu ampak ni edini
+        temp = temp->nasl;
+        delite(temp->prej->id);
+        return 2; //return 2 pomeni da naj ostane na istem elementu naslednji cikel loopa
+    }
+    else {
+        temp = temp->prej;
+       // std::cout << "del.3" << temp->nasl->id;
+        delite(temp->nasl->id); //izbrse katerikoli ostal element
+        if (temp == zaklj) return 0;
+        return 1; //return 1 pomeni naj nadaljuje z loopom
+    }
+}
 
 
+/*
+template<class T>
+listObject ListManager<T>::delitefromLoop(listObject* temp)
+{
+    steviloObj++;
+
+    if (temp == start && temp == zaklj) { // edini element v listu
+        delite(temp->id);
+        return 0;
+    }
+    else if (temp == start) { // prvi element v listu ampak ni edini
+        temp = temp->nasl;
+        delite(temp->prej->id);
+        return *temp;
+    }
+    else {
+        temp = temp->prej;
+        delite(temp->nasl->id); //izbrse katerikoli ostal element
+        return *temp->nasl;
+    }
+}
+*/
