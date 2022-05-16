@@ -7,8 +7,8 @@ class Bullet{
 	float speed;
 	sf::Clock durationClock;
 public:
-	Bullet();
-	Bullet(int milis, float towerX, float towerY, int angle, float speed);
+
+	void setup (int milis, float towerX, float towerY, int angle, float speed);
 	//~Bullet();
 	bool lifespanCheck();
 	bool coliding(sf::Sprite other);

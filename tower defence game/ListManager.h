@@ -26,7 +26,7 @@ public:
     void vnos(T value);
     bool delite(unsigned long int x);
 
-    int delitefromLoop(listObject* temp);
+    bool delitefromLoop(listObject* temp);
 
     listObject* start;
     listObject* zaklj;
@@ -146,7 +146,7 @@ bool ListManager<T>::delite(unsigned long int x)
 }
 
 template<typename T>
-inline int ListManager<T>::delitefromLoop(listObject* temp)
+inline bool ListManager<T>::delitefromLoop(listObject* temp)
 {
     if (temp == start && temp == zaklj) { // edini element v listu
        // std::cout << "del.1" << temp->id;
@@ -156,7 +156,7 @@ inline int ListManager<T>::delitefromLoop(listObject* temp)
     else if (temp == start) { // prvi element v listu ampak ni edini
         temp = temp->nasl;
         delite(temp->prej->id);
-        return 2; //return 2 pomeni da naj ostane na istem elementu naslednji cikel loopa
+        return 1; //return 2 pomeni da naj ostane na istem elementu naslednji cikel loopa
     }
     else {
         temp = temp->prej;

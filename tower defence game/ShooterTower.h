@@ -2,12 +2,12 @@
 #include "Placeable.h"
 #include "Bullet.h"
 
-class ShooterTower :
-    public Placeable
+class ShooterTower :  public Placeable
 {
-    int bulletDuration;
+    sf::Clock reloadClock;
+    int bulletDuration, reloadSpeed;
 public:
-    Bullet shoot();
-
+    bool shoot(Bullet bulletArr[6]);
+    void place(float x, float y, int reload, int duration);
 };
 

@@ -13,6 +13,7 @@ int ListManager<Bullet>::steviloObj;
 bool Placeable::prosto[12][16];
 
 int main() {
+    Bullet b;
 
     ListManager<Enemy>::setStObj(0);
     ListManager<ShooterTower>::setStObj(0);
@@ -21,18 +22,19 @@ int main() {
     //nastavljanje spremenjlivk
 
     Window window;
-    Bullet b(800, 20.0, 20.0, 50, 40.7);
     Enemy enemy, enemy2;
     enemy.setup(1);
     enemy2.setup(2);
     sf::Clock clock;
-    Bullet d;
+
 
     ListManager<Bullet> bulletList;
-    bulletList.vnos(b);
+
     ListManager<Enemy> enemyList;
-    enemyList.vnos(enemy2);
-    ListManager<ShooterTower> placeableList;
+
+  
+    ListManager<ShooterTower> shooterList;
+
 
 
     // program traja dokler je okno odprto
@@ -43,21 +45,56 @@ int main() {
 
         for (ListManager<Enemy>::listObject* temp = enemyList.start; temp != NULL;) {
             if (!temp->data.followPath()) { //pomeni da je na koncu poti in ga je potrebno izbrisati
-                int premik = enemyList.delitefromLoop(temp);
-                if (premik == 0) temp = NULL;
-                else if (premik == 1) temp = temp->nasl;  
+                
+                ListManager<Enemy>::listObject* tnasl = temp->nasl;
+                bool premik = enemyList.delitefromLoop(temp);
+                if (!premik) temp = NULL;
+                else temp = tnasl;  
             }
             else temp = temp->nasl;  
         }
 
         for (ListManager<Bullet>::listObject* temp = bulletList.start; temp != NULL;) {
             if (temp->data.lifespanCheck()) { //pomeni da je na koncu zivljenja in ga je potrebno izbrisati
+                ListManager<Bullet>::listObject* tnasl = temp->nasl;
                 int premik = bulletList.delitefromLoop(temp);
                 if (premik == 0) temp = NULL;
-                else if (premik == 1) temp = temp->nasl;
+                else if (premik == 1) temp = tnasl;
             }
-            else temp = temp->nasl;
+            /*else {
+                bool jeZbrisan = 0;
+                for (ListManager<Enemy>::listObject* tempE = enemyList.start; tempE != NULL; tempE = tempE->nasl) {
+                    if (temp->data.coliding(tempE->data.getSprite())) {
+                        std::cout << "deleting bullets (collision)\n";
+                        int premik = bulletList.delitefromLoop(temp);  //zbrise bullet
+                        if (premik == 0) temp = NULL;
+                        else if (premik == 1) temp = temp->nasl;
+                        enemyList.delite(tempE->id);
+                        jeZbrisan = 1;
+                        break;
+                    }
+                }
+                if (jeZbrisan == 0) {
+                    temp->data.move();
+                    temp = temp->nasl;
+                }
+                
+            }*/
+            else {
+                temp->data.move();
+                temp = temp->nasl;
+            }
+        }
 
+        for (ListManager<ShooterTower>::listObject* temp = shooterList.start; temp != NULL;temp = temp->nasl) {
+            Bullet bullArr[8];
+            
+            if (temp->data.shoot(bullArr)) {
+                for (int i = 0; i < 8; i++) {
+                    bulletList.vnos(bullArr[i]);
+                }
+            }
+            
         }
 
         /*for (ListManager<Bullet>::listObject* temp = bulletList.start; temp != NULL; temp = temp->nasl) {
@@ -92,17 +129,17 @@ int main() {
                     Placeable::setProsto(window.getMouseClickLocation().y / 50, window.getMouseClickLocation().x / 50, 0);
                     std::cout << "placed tile \n";
                     ShooterTower* p = new ShooterTower;
-                    p->place(float(window.getMouseClickLocation().x / 50 * 50 + 25), float(window.getMouseClickLocation().y / 50 * 50 + 25));
-                    placeableList.vnos(*p);
+                    p->place(float(window.getMouseClickLocation().x / 50 * 50 + 25), float(window.getMouseClickLocation().y / 50 * 50 + 25), 800, 250);
+                    shooterList.vnos(*p);
                 }
             }
-            window.renderList(placeableList);
+            window.renderList(shooterList);
             window.renderList(enemyList);
             window.renderList(bulletList);
-            window.renderSprite(d.getSprite());
+            window.renderSprite(b.getSprite());
 
             window.render();
-            if (clock.getElapsedTime().asMilliseconds() > 400) {
+            if (clock.getElapsedTime().asMilliseconds() > 2500) {
                 enemyList.vnos(enemy);
                 clock.restart();
             };
