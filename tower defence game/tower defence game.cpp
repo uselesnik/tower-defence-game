@@ -5,10 +5,14 @@
 #include <vector>
 #include "Placeable.h"
 #include "ShooterTower.h"
+#include "PlusShooter.h"
+#include "DiagonalShooter.h"
 #include "Bullet.h"
 
-int ListManager<Enemy>::steviloObj;
+int ListManager<Enemy>::steviloObj; //stevilo obj pomeni koliko seznamov je trenutno da jih na koncu lahko izbrise
 int ListManager<ShooterTower>::steviloObj;
+int ListManager<PlusShooter>::steviloObj;
+int ListManager<DiagonalShooter>::steviloObj;
 int ListManager<Bullet>::steviloObj;
 bool Placeable::prosto[12][16];
 
@@ -17,6 +21,8 @@ int main() {
 
     ListManager<Enemy>::setStObj(0);
     ListManager<ShooterTower>::setStObj(0);
+    ListManager<PlusShooter>::setStObj(0);
+    ListManager<DiagonalShooter>::setStObj(0);
     ListManager<Bullet>::setStObj(0);
     Placeable::initProsto();
     //nastavljanje spremenjlivk
@@ -29,13 +35,10 @@ int main() {
 
 
     ListManager<Bullet> bulletList;
-
     ListManager<Enemy> enemyList;
-
-  
     ListManager<ShooterTower> shooterList;
-
-
+    ListManager<PlusShooter> plusList;
+    ListManager<DiagonalShooter> diagonalList;
 
     // program traja dokler je okno odprto
 
@@ -66,11 +69,12 @@ int main() {
                 for (ListManager<Enemy>::listObject* tempE = enemyList.start; tempE != NULL; tempE = tempE->nasl) {
                     if (temp->data.coliding(tempE->data.getSprite())) {
                         ListManager<Bullet>::listObject* tnasl = temp->nasl;
-
+                        int damage = temp->data.getDamage();
                         bool premik = bulletList.delitefromLoop(temp);  //zbrise bullet
                         if (premik == 0) temp = NULL;
                         else  temp = tnasl;
-                        enemyList.delite(tempE->id);
+                        if (tempE->data.hit(damage)) enemyList.delite(tempE->id);
+                       
                         jeZbrisan = 1;
                         break;
                     }
@@ -85,16 +89,31 @@ int main() {
         }
 
         for (ListManager<ShooterTower>::listObject* temp = shooterList.start; temp != NULL;temp = temp->nasl) {
-            Bullet bullArr[8];
-            
+            Bullet bullArr[6];
             if (temp->data.shoot(bullArr)) {
-                for (int i = 0; i < 8; i++) {
+                for (int i = 0; i < 6; i++) {
+                    bulletList.vnos(bullArr[i]);
+                }
+            }   
+        }
+        for (ListManager<PlusShooter>::listObject* temp = plusList.start; temp != NULL; temp = temp->nasl) {
+            Bullet bullArr[4];
+
+            if (temp->data.shoot(bullArr)) {
+                for (int i = 0; i < 4; i++) {
                     bulletList.vnos(bullArr[i]);
                 }
             }
-            
         }
+        for (ListManager<DiagonalShooter>::listObject* temp = diagonalList.start; temp != NULL; temp = temp->nasl) {
+            Bullet bullArr[4];
 
+            if (temp->data.shoot(bullArr)) {
+                for (int i = 0; i < 4; i++) {
+                    bulletList.vnos(bullArr[i]);
+                }
+            }
+        }
         /*for (ListManager<Bullet>::listObject* temp = bulletList.start; temp != NULL; temp = temp->nasl) {
             if (!temp->data.lifespanCheck()) { //pomeni da je potrebno bullet izbrisati
                 
@@ -126,11 +145,24 @@ int main() {
                 if (Placeable::jeProsto(window.getMouseClickLocation().y / 50, window.getMouseClickLocation().x / 50)) {
                     Placeable::setProsto(window.getMouseClickLocation().y / 50, window.getMouseClickLocation().x / 50, 0);
                     std::cout << "placed tile \n";
+                    /*DiagonalShooter* p = new DiagonalShooter;
+                    p->place(float(window.getMouseClickLocation().x / 50 * 50 + 25), float(window.getMouseClickLocation().y / 50 * 50 + 25), 900, 480);
+                    diagonalList.vnos(*p);*/
+                     //plus shooter
+                    PlusShooter* p = new PlusShooter;
+                    p->place(float(window.getMouseClickLocation().x / 50 * 50 + 25), float(window.getMouseClickLocation().y / 50 * 50 + 25), 1400, 600);
+                    plusList.vnos(*p);
+                    /*
+                    shooter
                     ShooterTower* p = new ShooterTower;
                     p->place(float(window.getMouseClickLocation().x / 50 * 50 + 25), float(window.getMouseClickLocation().y / 50 * 50 + 25), 800, 250);
                     shooterList.vnos(*p);
+                    */
+                  
                 }
             }
+            window.renderList(diagonalList);
+            window.renderList(plusList);
             window.renderList(shooterList);
             window.renderList(enemyList);
             window.renderList(bulletList);

@@ -53,20 +53,12 @@ bool Enemy::followPath()
 
 void Enemy::setup(int i)
 {
-	
 
 	this->path[0] = sf::Vector2f(600, 0.0);
 	this->path[1] = sf::Vector2f(100.0, 200);
 	this->path[2] = sf::Vector2f(-650.0, 0.0);
 	this->path[3] = sf::Vector2f(100, 200.0);
 	this->path[4] = sf::Vector2f(600.0, 0.0);
-
-	/*this->path[0] = sf::Vector2f(1, 0.0);
-	this->path[1] = sf::Vector2f(1, 0.0);
-	this->path[2] = sf::Vector2f(1, 0.0);
-	this->path[3] = sf::Vector2f(1, 0.0);
-	this->path[4] = sf::Vector2f(1, 0.0);*/
-
 	this->hyp = sqrt(powf(path[0].x, 2) + powf(path[0].y, 2));
 
 	switch (i) {
@@ -74,14 +66,24 @@ void Enemy::setup(int i)
 		this->texture.loadFromFile("images\\volleyball.png");
 		this->sprite.setTexture(texture);
 		this->speed = 2.0;
+		this->health = 4;
 		break;
 	case 2:
 		this->texture.loadFromFile("images\\football.png");
 		this->sprite.setTexture(texture);
 		this->speed = 4.0;
+		this->health = 4;
 		break;
 	}
 	/*this->texture.loadFromFile("volleyball.png");
 	this->sprite.setTexture(texture);
 	this->speed = 4.0;*/
+}
+
+bool Enemy::hit(int damage)
+{
+	health -= damage;
+	std::cout << "health: " << health << "\n";
+	if (health <= 0) return 1;
+	return 0;
 }

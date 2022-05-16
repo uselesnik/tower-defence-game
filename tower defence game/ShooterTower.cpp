@@ -10,7 +10,7 @@ bool ShooterTower::shoot(Bullet bulletArr[6])
 	for (int i = 0; i < 6; i++) {
 		reloadClock.restart();
 		Bullet bullet;
-		bullet.setup(bulletDuration, this->getSprite().getPosition().x, this->getSprite().getPosition().y, i * 60, 5);
+		bullet.setup(bulletDuration, this->getSprite().getPosition().x, this->getSprite().getPosition().y, i * 60, 5, 2);
 		bulletArr[i] = bullet;
 		
 	}

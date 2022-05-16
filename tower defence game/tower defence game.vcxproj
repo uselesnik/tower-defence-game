@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="DiagonalShooter.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -164,16 +165,19 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="Placeable.cpp" />
+    <ClCompile Include="PlusShooter.cpp" />
     <ClCompile Include="ShooterTower.cpp" />
     <ClCompile Include="tower defence game.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="DiagonalShooter.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="ListManager.h" />
     <ClInclude Include="Placeable.h" />
+    <ClInclude Include="PlusShooter.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ShooterTower.h" />
     <ClInclude Include="Window.h" />

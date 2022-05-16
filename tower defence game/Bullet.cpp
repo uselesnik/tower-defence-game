@@ -5,13 +5,14 @@
 
 
 
-void Bullet::setup(int milis, float towerX, float towerY, int angle, float speed)
+void Bullet::setup(int milis, float towerX, float towerY, int angle, float speed, int damage)
 {
     texture.loadFromFile("images\\bullet.png");
     sprite.setTexture(texture);
     sprite.setPosition(towerX, towerY);
     this->angle = angle;
     this->speed = speed;
+    this->damage = damage;
     bulletDuration = milis;
     durationClock.restart();
 
@@ -44,6 +45,11 @@ void Bullet::move()
 sf::Sprite Bullet::getSprite()
 {
     return sprite;
+}
+
+int Bullet::getDamage()
+{
+    return damage;
 }
 
 

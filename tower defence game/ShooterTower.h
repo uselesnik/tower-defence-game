@@ -4,6 +4,7 @@
 
 class ShooterTower :  public Placeable
 {
+protected:
     sf::Clock reloadClock;
     int bulletDuration, reloadSpeed;
 public:
