@@ -1,6 +1,12 @@
 #include "pch.h"
 #include "PlusShooter.h"
 
+PlusShooter::PlusShooter()
+{
+	texture.loadFromFile("images\\plusTower.png");
+	sprite.setTexture(texture);
+}
+
 bool PlusShooter::shoot(Bullet bullArr[4])
 {
 	if (reloadClock.getElapsedTime().asMilliseconds() < reloadSpeed) return 0;

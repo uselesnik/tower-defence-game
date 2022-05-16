@@ -4,6 +4,12 @@
 #include "ListManager.h"
 
 
+ShooterTower::ShooterTower()
+{
+	texture.loadFromFile("images\\shooterTower.png");
+	sprite.setTexture(texture);
+}
+
 bool ShooterTower::shoot(Bullet bulletArr[6])
 {
 	if (reloadClock.getElapsedTime().asMilliseconds() < reloadSpeed) return 0;

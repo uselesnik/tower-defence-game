@@ -1,6 +1,12 @@
 #include "pch.h"
 #include "DiagonalShooter.h"
 
+DiagonalShooter::DiagonalShooter()
+{
+	texture.loadFromFile("images\\diagonalTower.png");
+	sprite.setTexture(texture);
+}
+
 bool DiagonalShooter::shoot(Bullet bullArr[4])
 {
 	if (reloadClock.getElapsedTime().asMilliseconds() < reloadSpeed) return 0;

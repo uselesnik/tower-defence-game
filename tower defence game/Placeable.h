@@ -1,10 +1,10 @@
 #pragma once
 class Placeable
 {
+	static bool prosto[12][16];
+protected:
 	sf::Sprite sprite;
 	sf::Texture texture;
-
-	static bool prosto[12][16];
 public:
 	virtual void place(float y, float x);
 
