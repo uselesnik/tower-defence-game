@@ -59,16 +59,17 @@ int main() {
                 ListManager<Bullet>::listObject* tnasl = temp->nasl;
                 int premik = bulletList.delitefromLoop(temp);
                 if (premik == 0) temp = NULL;
-                else if (premik == 1) temp = tnasl;
+                else  temp = tnasl;
             }
-            /*else {
+            else {
                 bool jeZbrisan = 0;
                 for (ListManager<Enemy>::listObject* tempE = enemyList.start; tempE != NULL; tempE = tempE->nasl) {
                     if (temp->data.coliding(tempE->data.getSprite())) {
-                        std::cout << "deleting bullets (collision)\n";
-                        int premik = bulletList.delitefromLoop(temp);  //zbrise bullet
+                        ListManager<Bullet>::listObject* tnasl = temp->nasl;
+
+                        bool premik = bulletList.delitefromLoop(temp);  //zbrise bullet
                         if (premik == 0) temp = NULL;
-                        else if (premik == 1) temp = temp->nasl;
+                        else  temp = tnasl;
                         enemyList.delite(tempE->id);
                         jeZbrisan = 1;
                         break;
@@ -79,11 +80,8 @@ int main() {
                     temp = temp->nasl;
                 }
                 
-            }*/
-            else {
-                temp->data.move();
-                temp = temp->nasl;
             }
+
         }
 
         for (ListManager<ShooterTower>::listObject* temp = shooterList.start; temp != NULL;temp = temp->nasl) {
