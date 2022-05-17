@@ -26,6 +26,8 @@ public:
     void vnos(T value);
     bool delite(unsigned long int x);
 
+    unsigned long int getNextId();
+
     bool delitefromLoop(listObject* temp);
 
     listObject* start;
@@ -143,6 +145,12 @@ bool ListManager<T>::delite(unsigned long int x)
     }
     std::cout << "nwm";
     return 0;
+}
+
+template<typename T>
+inline unsigned long int ListManager<T>::getNextId()
+{
+    return idAssigner;
 }
 
 template<typename T>

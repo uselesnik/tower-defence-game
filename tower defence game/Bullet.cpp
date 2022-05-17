@@ -5,11 +5,16 @@
 
 
 
+Bullet::Bullet()
+{
+ 
+}
+
 void Bullet::setup(int milis, float towerX, float towerY, int angle, float speed, int damage)
 {
-    texture.loadFromFile("images\\bullet.png");
-    sprite.setTexture(texture);
-    sprite.setPosition(towerX, towerY);
+
+    
+    this->sprite.setPosition(towerX, towerY);
     this->angle = angle;
     this->speed = speed;
     this->damage = damage;
@@ -40,6 +45,12 @@ bool Bullet::coliding(sf::Sprite other)
 void Bullet::move()
 {
     sprite.move(cosf(angle * (3.14159/180))  * speed, sinf(angle * (3.14159 / 180)) * -1 * speed); //ker se pri sfml 0,0 zacne na vrhu zgoraj
+}
+
+void Bullet::setSprite()
+{
+    this->texture.loadFromFile("images\\bullet.png");
+    this->sprite.setTexture(texture);
 }
 
 sf::Sprite Bullet::getSprite()

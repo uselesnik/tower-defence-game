@@ -35,6 +35,7 @@ int main() {
 
 
     ListManager<Bullet> bulletList;
+    bulletList.vnos(b);
     ListManager<Enemy> enemyList;
     ListManager<ShooterTower> shooterList;
     ListManager<PlusShooter> plusList;
@@ -93,6 +94,7 @@ int main() {
             if (temp->data.shoot(bullArr)) {
                 for (int i = 0; i < 6; i++) {
                     bulletList.vnos(bullArr[i]);
+                    bulletList.start->data.setSprite();
                 }
             }   
         }
@@ -102,6 +104,7 @@ int main() {
             if (temp->data.shoot(bullArr)) {
                 for (int i = 0; i < 4; i++) {
                     bulletList.vnos(bullArr[i]);
+                    bulletList.start->data.setSprite();
                 }
             }
         }
@@ -111,6 +114,7 @@ int main() {
             if (temp->data.shoot(bullArr)) {
                 for (int i = 0; i < 4; i++) {
                     bulletList.vnos(bullArr[i]);
+                    bulletList.start->data.setSprite();
                 }
             }
         }
