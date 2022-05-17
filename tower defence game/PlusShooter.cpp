@@ -19,3 +19,12 @@ bool PlusShooter::shoot(Bullet bullArr[4])
 	return 1;
 }
 
+int PlusShooter::getPrice()
+{
+	return price;
+}
+
+void PlusShooter::setPrice(int x)
+{
+	price = x;
+}

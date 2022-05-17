@@ -19,3 +19,12 @@ bool DiagonalShooter::shoot(Bullet bullArr[4])
 	return 1;
 }
 
+int DiagonalShooter::getPrice()
+{
+	return price;
+}
+
+void DiagonalShooter::setPrice(int x)
+{
+	price = x;
+}

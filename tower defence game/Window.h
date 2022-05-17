@@ -25,6 +25,7 @@ public:
 	void update();
 	void render();
 	void renderSprite(sf::Sprite sprite);
+	void renderText(sf::Text text);
 	
 
 };

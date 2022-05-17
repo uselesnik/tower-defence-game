@@ -69,4 +69,9 @@ void Window::renderSprite(sf::Sprite sprite)
     window->draw(sprite);
 }
 
+void Window::renderText(sf::Text text)
+{
+    window->draw(text);
+}
+
 

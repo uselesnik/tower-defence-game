@@ -9,6 +9,19 @@
 #include "DiagonalShooter.h"
 #include "Bullet.h"
 
+sf::Text textSetup(sf::Text text, std::string printedText, sf::Color fill, sf::Color outline) {
+    text.setFillColor(fill);
+    text.setOutlineColor(outline);
+    text.setOutlineThickness(1);
+    text.setCharacterSize(20);
+    text.setString(printedText);
+    return text;
+}
+
+//nastavljanje staticnih lastnosti
+int ShooterTower::price;
+int PlusShooter::price;
+int DiagonalShooter::price;
 int ListManager<Enemy>::steviloObj; //stevilo obj pomeni koliko seznamov je trenutno da jih na koncu lahko izbrise
 int ListManager<ShooterTower>::steviloObj;
 int ListManager<PlusShooter>::steviloObj;
@@ -17,8 +30,9 @@ int ListManager<Bullet>::steviloObj;
 bool Placeable::prosto[12][16];
 
 int main() {
-    Bullet b;
-
+    ShooterTower::setPrice(75);
+    DiagonalShooter::setPrice(25);
+    PlusShooter::setPrice(200);
     ListManager<Enemy>::setStObj(0);
     ListManager<ShooterTower>::setStObj(0);
     ListManager<PlusShooter>::setStObj(0);
@@ -31,11 +45,17 @@ int main() {
     Enemy enemy, enemy2;
     enemy.setup(1);
     enemy2.setup(2);
-    sf::Clock clock;
 
+    sf::Clock clock;
+    sf::Font font;
+    sf::Text text, prices;
+    font.loadFromFile("Daydream.ttf");
+    text.setFont(font);
+    prices.setFont(font);
+
+    
 
     ListManager<Bullet> bulletList;
-    bulletList.vnos(b);
     ListManager<Enemy> enemyList;
     ListManager<ShooterTower> shooterList;
     ListManager<PlusShooter> plusList;
@@ -118,33 +138,7 @@ int main() {
                 }
             }
         }
-        /*for (ListManager<Bullet>::listObject* temp = bulletList.start; temp != NULL; temp = temp->nasl) {
-            if (!temp->data.lifespanCheck()) { //pomeni da je potrebno bullet izbrisati
-                
-                if (temp == bulletList.start && temp == bulletList.zaklj) { // edini element v listu
-                    bulletList.delite(temp->id);
-                    break;
-                }
-                else if (temp == bulletList.start) { // prvi element v listu ampak ni edini
-                    temp = temp->nasl;
-                    bulletList.delite(temp->prej->id);
-                }
-                else {
-                    temp = temp->prej;
-                    bulletList.delite(temp->nasl->id); //izbrse katerikoli ostal element
-
-                }
-            
-            }
-            else {
-                for (ListManager<Enemy>::listObject* tempE = enemyList.start; tempE != NULL; tempE = tempE->nasl) 
-                    if (temp->data.coliding(tempE->data.getSprite())) std::cout << "\n bullet:" << temp->id << " coliding with: " << tempE->id; //
-
-                
-            }
-        }*/
-    
-            
+       
             if (window.getMouseClickLocation().x > -1 && window.getMouseClickLocation().y > -1) {
                 if (Placeable::jeProsto(window.getMouseClickLocation().y / 50, window.getMouseClickLocation().x / 50)) {
                     Placeable::setProsto(window.getMouseClickLocation().y / 50, window.getMouseClickLocation().x / 50, 0);
@@ -153,24 +147,30 @@ int main() {
                     p->place(float(window.getMouseClickLocation().x / 50 * 50 + 25), float(window.getMouseClickLocation().y / 50 * 50 + 25), 900, 480);
                     diagonalList.vnos(*p);*/
                      //plus shooter
-                    PlusShooter* p = new PlusShooter;
+                    /*PlusShooter* p = new PlusShooter;
                     p->place(float(window.getMouseClickLocation().x / 50 * 50 + 25), float(window.getMouseClickLocation().y / 50 * 50 + 25), 1400, 600);
                     plusList.vnos(*p);
-                    /*
-                    shooter
-                    ShooterTower* p = new ShooterTower;
-                    p->place(float(window.getMouseClickLocation().x / 50 * 50 + 25), float(window.getMouseClickLocation().y / 50 * 50 + 25), 800, 250);
-                    shooterList.vnos(*p);
                     */
+                    //shooter
+                    ShooterTower* p = new ShooterTower;
+                    p->place(float(window.getMouseClickLocation().x / 50 * 50 + 25), float(window.getMouseClickLocation().y / 50 * 50 + 25), 600, 300);
+                    shooterList.vnos(*p);
+                    
                   
                 }
             }
+            text = textSetup( text, "shop", sf::Color::Black, sf::Color::White);
+            prices = textSetup(prices, std::to_string(ShooterTower::getPrice()) + "$ \t \t" + std::to_string(DiagonalShooter::getPrice()) + "$ \t \t" + std::to_string(PlusShooter::getPrice()) + "$", sf::Color::Yellow, sf::Color::Black);
+            text.setPosition(5, 475.0);
+            prices.setPosition(15, 570.0);
+
             window.renderList(diagonalList);
             window.renderList(plusList);
             window.renderList(shooterList);
             window.renderList(enemyList);
             window.renderList(bulletList);
-            window.renderSprite(b.getSprite());
+            window.renderText(text);
+            window.renderText(prices);
 
             window.render();
             if (clock.getElapsedTime().asMilliseconds() > 2500) {

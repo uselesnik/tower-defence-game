@@ -29,6 +29,14 @@ void ShooterTower::place(float x, float y, int reload, int duration)
 	bulletDuration = duration;
 	reloadSpeed = reload;
 	reloadClock.restart();
+}
 
+int ShooterTower::getPrice()
+{
+	return price;
+}
 
+void ShooterTower::setPrice(int x)
+{
+	price = x;
 }
