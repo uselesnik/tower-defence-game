@@ -142,18 +142,18 @@ int main() {
             if (window.getMouseClickLocation().x > -1 && window.getMouseClickLocation().y > -1) {
                 if (Placeable::jeProsto(window.getMouseClickLocation().y / 50, window.getMouseClickLocation().x / 50)) {
                     Placeable::setProsto(window.getMouseClickLocation().y / 50, window.getMouseClickLocation().x / 50, 0);
-                    std::cout << "placed tile \n";
-                    /*DiagonalShooter* p = new DiagonalShooter;
-                    p->place(float(window.getMouseClickLocation().x / 50 * 50 + 25), float(window.getMouseClickLocation().y / 50 * 50 + 25), 900, 480);
+                   // std::cout << "placed tile \n";
+                   /* DiagonalShooter* p = new DiagonalShooter;
+                    p->place(float(window.getMouseClickLocation().x / 50 * 50 + 25), float(window.getMouseClickLocation().y / 50 * 50 + 25), 800, 580);
                     diagonalList.vnos(*p);*/
-                     //plus shooter
-                    /*PlusShooter* p = new PlusShooter;
+                        //plus shooter
+                   /* PlusShooter* p = new PlusShooter;
                     p->place(float(window.getMouseClickLocation().x / 50 * 50 + 25), float(window.getMouseClickLocation().y / 50 * 50 + 25), 1400, 600);
                     plusList.vnos(*p);
                     */
                     //shooter
                     ShooterTower* p = new ShooterTower;
-                    p->place(float(window.getMouseClickLocation().x / 50 * 50 + 25), float(window.getMouseClickLocation().y / 50 * 50 + 25), 600, 300);
+                    p->place(float(window.getMouseClickLocation().x / 50 * 50 + 25), float(window.getMouseClickLocation().y / 50 * 50 + 25), 480, 285);
                     shooterList.vnos(*p);
                     
                   
