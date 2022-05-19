@@ -67,7 +67,7 @@ ListManager<T>::~ListManager()
             else
             {
                 start = start->nasl;
-                //std::cout << "deliting:  " << start->prej->id << "\n";
+               // std::cout << "deliting:  " << start->prej->id << "\n";
                 delete start->prej;
                 start->prej = NULL;
             }
@@ -145,7 +145,7 @@ bool ListManager<T>::delite(unsigned long long x)
         delete temp;
         return 1;
     }
-    std::cout << "nwm";
+ 
     return 0;
 }
 

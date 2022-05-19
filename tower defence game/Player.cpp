@@ -7,8 +7,22 @@ Player::Player()
 	health = 100;
 	money = 100;
 	placingMode = 0;
-	highscore = 0; //kasneje tu beremo high score iz datoteke
+	std::fstream dat;
+	dat.open("generatedFiles\\highscore.txt", std::ios::in);
+	if (dat.is_open()) dat >> highscore;
+	else highscore = -1; //kasneje tu beremo high score iz datoteke
 
+}
+
+Player::~Player()
+{
+	int high = (highscore > score) ? highscore : score;
+	std::fstream dat;
+	dat.open("generatedFiles\\highscore.txt", std::ios::out);
+	if (dat.is_open()) {
+		dat << high;
+	}
+	dat.close();
 }
 
 void Player::resetPlayer()

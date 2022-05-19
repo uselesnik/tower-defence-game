@@ -1,12 +1,11 @@
 #pragma once
 class Bullet{
 private:
+	int bulletDuration, angle, damage;
+	float speed;
 
 	sf::Texture texture;
 	sf::Sprite sprite;
-
-	int bulletDuration, angle, damage;
-	float speed;
 	sf::Clock durationClock;
 public:
 	Bullet();
@@ -17,6 +16,7 @@ public:
 	void move();
 	void setSprite();
 	sf::Sprite getSprite();
+	void setColor(sf::Color x);
 	int getDamage();
 	
 };

@@ -5,6 +5,7 @@ PlusShooter::PlusShooter()
 {
 	texture.loadFromFile("images\\plusTower.png");
 	sprite.setTexture(texture);
+	
 }
 
 bool PlusShooter::shoot(Bullet bullArr[4])
@@ -14,8 +15,10 @@ bool PlusShooter::shoot(Bullet bullArr[4])
 		reloadClock.restart();
 		Bullet bullet;
 		bullet.setup(bulletDuration, this->getSprite().getPosition().x, this->getSprite().getPosition().y, i * 90, 7, 5);
+		bullet.setColor(sf::Color::Red);
 		bullArr[i] = bullet;
-	}		
+	}
+	
 	return 1;
 }
 

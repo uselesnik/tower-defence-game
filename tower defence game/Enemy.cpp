@@ -70,23 +70,30 @@ void Enemy::setup(int i)
 	case 1:
 		this->texture.loadFromFile("images\\volleyball.png");
 		this->sprite.setTexture(texture);
-		this->speed = 1.8;
-		this->health = 4;
-		this->points = 20;
+		this->speed = 2;
+		this->health = 10;
+		this->points = 3;
 		break;
 	case 2:
-		this->texture.loadFromFile("images\\football.png");	
+		this->texture.loadFromFile("images\\football.png");
 		this->sprite.setTexture(texture);
-		this->speed = 4.0;
-		this->health = 4;
-		this->points = 4;
+		this->speed = 4.2;
+		this->health = 10;
+		this->points = 5;
 		break;
 	case 3:
-		this->texture.loadFromFile("images\\temp.png");
+		this->texture.loadFromFile("images\\basketball.png");
 		this->sprite.setTexture(texture);
 		this->speed = 1;
-		this->health = 20;
-		this->points = 6;
+		this->health = 40;
+		this->points = 8;
+		break;
+	case 4:
+		this->texture.loadFromFile("images\\beachBall.png");
+		this->sprite.setTexture(texture);
+		this->speed = 1.5;
+		this->health = 100;
+		this->points = 10;
 		break;
 	}
 	/*this->texture.loadFromFile("volleyball.png");

@@ -24,6 +24,11 @@ sf::Vector2i Window::getMouseClickLocation()
     return mouseClickLocation;
 }
 
+sf::Vector2f Window::getMouseWorldLocation()
+{
+    return window->mapPixelToCoords(mouseClickLocation);
+}
+
 bool Window::open()
 {
 	return window->isOpen();
@@ -40,10 +45,9 @@ void Window::update()
             std::cout << "exited";
             window->close();
         }
-
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             mousePosition = sf::Mouse::getPosition(*window);
-           // std::cout << mousePosition.x / 50 << "\t" << mousePosition.y / 50 << "\n";
+            //std::cout << mousePosition.x  << "\t" << mousePosition.y  << "\n";
             if ((mousePosition.x >= 0 && mousePosition.x <= 800) && (mousePosition.y >= 0 && mousePosition.y <= 600)) mouseClickLocation = mousePosition;
 
         }
@@ -73,10 +77,16 @@ void Window::renderText(sf::Text text)
     window->draw(text);
 }
 
-bool Window::isPressed()
+bool Window::isSpacePressed()
 {
     if (window->hasFocus() && (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))) return 1;
    return 0;
+}
+
+bool Window::isMousePressed()
+{
+    if (window->hasFocus() && (sf::Mouse::isButtonPressed(sf::Mouse::Left))) return 1;
+    return 0;
 }
 
 

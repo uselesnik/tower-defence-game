@@ -16,6 +16,7 @@ public:
 	~Window();
 
 	sf::Vector2i getMouseClickLocation();
+	sf::Vector2f getMouseWorldLocation();
 
 	bool open();
 
@@ -27,7 +28,8 @@ public:
 	void renderSprite(sf::Sprite sprite);
 	void renderText(sf::Text text);
 
-	bool isPressed();
+	bool isSpacePressed();
+	bool isMousePressed();
 	
 
 };

@@ -59,6 +59,13 @@ sf::Sprite Bullet::getSprite()
     return sprite;
 }
 
+void Bullet::setColor(sf::Color x)
+{
+    sprite.setColor(x);
+}
+
+
+
 int Bullet::getDamage()
 {
     return damage;

@@ -1,9 +1,11 @@
 #pragma once
+#include <fstream>
 class Player
 {
 	int health, money, placingMode, score, highscore;
 public:
 	Player();
+	~Player();
 	
 	void resetPlayer();
 	
