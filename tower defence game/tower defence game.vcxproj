@@ -168,6 +168,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlusShooter.cpp" />
     <ClCompile Include="ShooterTower.cpp" />
+    <ClCompile Include="ShopItem.cpp" />
     <ClCompile Include="tower defence game.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -182,6 +183,7 @@
     <ClInclude Include="PlusShooter.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ShooterTower.h" />
+    <ClInclude Include="ShopItem.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>

@@ -4,7 +4,6 @@
 
 Window::Window()
 {
-    
 	window = new sf::RenderWindow(sf::VideoMode(800, 600), "tower defence game", sf::Style::Close);
 	window->setFramerateLimit(60);
     mouseClickLocation.x = -1;
@@ -72,6 +71,12 @@ void Window::renderSprite(sf::Sprite sprite)
 void Window::renderText(sf::Text text)
 {
     window->draw(text);
+}
+
+bool Window::isPressed()
+{
+    if (window->hasFocus() && (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))) return 1;
+   return 0;
 }
 
 

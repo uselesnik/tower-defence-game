@@ -5,9 +5,10 @@
 
 
 
+
+
 Bullet::Bullet()
 {
- 
 }
 
 void Bullet::setup(int milis, float towerX, float towerY, int angle, float speed, int damage)

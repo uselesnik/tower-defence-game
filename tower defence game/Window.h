@@ -26,6 +26,8 @@ public:
 	void render();
 	void renderSprite(sf::Sprite sprite);
 	void renderText(sf::Text text);
+
+	bool isPressed();
 	
 
 };

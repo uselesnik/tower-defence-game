@@ -6,14 +6,14 @@ template <typename T>
 
 class ListManager
 {
-    unsigned long int idAssigner;
+    unsigned long long idAssigner;
     static int steviloObj;
    // unsigned 
 public:
     struct  listObject {
         listObject* nasl, * prej;
         T data;
-        unsigned long int id;
+        unsigned long long id;
     };
  
     ListManager();
@@ -24,9 +24,11 @@ public:
     static int getStObj();
 
     void vnos(T value);
-    bool delite(unsigned long int x);
+    bool delite(unsigned long long x);
+    
+    void deliteList();
 
-    unsigned long int getNextId();
+    unsigned long long getNextId();
 
     bool delitefromLoop(listObject* temp);
 
@@ -111,7 +113,7 @@ void ListManager<T>::vnos(T value)
 }
 
 template<typename T>
-bool ListManager<T>::delite(unsigned long int x)
+bool ListManager<T>::delite(unsigned long long x)
 {
     if (start == zaklj && start != NULL && start->id == x){
        // std::cout << "deliting(z): " << start->id << "\n";
@@ -148,7 +150,29 @@ bool ListManager<T>::delite(unsigned long int x)
 }
 
 template<typename T>
-inline unsigned long int ListManager<T>::getNextId()
+inline void ListManager<T>::deliteList()
+{
+    while (start != NULL && zaklj != NULL) {
+
+        if (start == zaklj) //zbrise zadnji element
+        {
+            // std::cout << "deliting(z):  "<< start->id <<"\n";
+            delete start;
+            start = zaklj = NULL;
+
+        }
+        else
+        {
+            start = start->nasl;
+            //std::cout << "deliting:  " << start->prej->id << "\n";
+            delete start->prej;
+            start->prej = NULL;
+        }
+    }
+}
+
+template<typename T>
+inline unsigned long long ListManager<T>::getNextId()
 {
     return idAssigner;
 }

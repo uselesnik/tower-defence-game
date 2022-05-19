@@ -25,6 +25,11 @@ sf::Sprite Enemy::getSprite()
 
 }
 
+int Enemy::getPoints()
+{
+	return points;
+}
+
 // other
 
 bool Enemy::followPath()
@@ -67,12 +72,21 @@ void Enemy::setup(int i)
 		this->sprite.setTexture(texture);
 		this->speed = 1.8;
 		this->health = 4;
+		this->points = 20;
 		break;
 	case 2:
 		this->texture.loadFromFile("images\\football.png");	
 		this->sprite.setTexture(texture);
 		this->speed = 4.0;
 		this->health = 4;
+		this->points = 4;
+		break;
+	case 3:
+		this->texture.loadFromFile("images\\temp.png");
+		this->sprite.setTexture(texture);
+		this->speed = 1;
+		this->health = 20;
+		this->points = 6;
 		break;
 	}
 	/*this->texture.loadFromFile("volleyball.png");
@@ -83,7 +97,7 @@ void Enemy::setup(int i)
 bool Enemy::hit(int damage)
 {
 	health -= damage;
-	std::cout << "health: " << health << "\n";
+	//std::cout << "health: " << health << "\n";
 	if (health <= 0) return 1;
 	return 0;
 }

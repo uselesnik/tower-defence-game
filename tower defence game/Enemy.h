@@ -11,7 +11,7 @@ private:
 	sf::Sprite sprite;
 
 	sf::Vector2f path[5];
-	
+	int points;
 	int health;
 	float speed;
 	int pathpoint;
@@ -25,6 +25,7 @@ public:
 	~Enemy();
 	// setters & getters
 	sf::Sprite getSprite();
+	int getPoints();
 
 
 
