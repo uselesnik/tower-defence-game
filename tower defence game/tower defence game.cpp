@@ -53,11 +53,13 @@ int main() {
     srand(time(NULL));
     sf::Clock clock;
     sf::Font font;
-    sf::Text text, prices, stats;
+    sf::Text text, prices, healthText, moneyText, scoreText;
     font.loadFromFile("superstar.ttf");
     text.setFont(font);
     prices.setFont(font);
-    stats.setFont(font);
+    healthText.setFont(font);
+    moneyText.setFont(font);
+    scoreText.setFont(font);
     Player player;
 
     ShopItem shooterShop(1);
@@ -67,10 +69,10 @@ int main() {
     ShopItem cancelButton(5);
 
     shooterShop.setPosition(32, 536);
-    diagonalShop.setPosition(135, 536);
-    plusShop.setPosition(248, 536);
-    deleteButton.setPosition(361, 536);
-    cancelButton.setPosition(463, 536);
+    diagonalShop.setPosition(120, 536);
+    plusShop.setPosition(212, 536);
+    deleteButton.setPosition(281, 536);
+    cancelButton.setPosition(364, 536);
 
     sf::Texture selectedTexture;
     sf::Sprite selected;
@@ -78,6 +80,12 @@ int main() {
     selected.setTexture(selectedTexture);
     selected.setOrigin(24, 24);
     selected.setPosition(cancelButton.getSprite().getPosition());
+
+    sf::Texture shopTexture;
+    sf::Sprite shop;
+    shopTexture.loadFromFile("images\\shop.png");
+    shop.setTexture(shopTexture);
+    shop.setPosition(0, 452);
 
     ListManager<Bullet> bulletList;
     ListManager<Enemy> enemyList;
@@ -91,6 +99,18 @@ int main() {
 
         window.update();
         if (player.getHealth() > 0) {
+
+            text = textSetup(text, "shop:", sf::Color::Cyan, sf::Color::Black);
+            healthText = textSetup(healthText, " health :" + std::to_string(player.getHealth()), sf::Color::Red, sf::Color::Black);
+            moneyText = textSetup(moneyText, "\n money: " + std::to_string(player.getMoney()) + "$", sf::Color::Green, sf::Color::Black);
+            scoreText = textSetup(scoreText, "\n\n score: " + std::to_string(player.getScore()) + "\n highscore: " + std::to_string(player.getHighscore()), sf::Color::Yellow, sf::Color::Black);
+            prices = textSetup(prices, std::to_string(ShooterTower::getPrice()) + "$  \t" + std::to_string(DiagonalShooter::getPrice()) + "$  \t" + std::to_string(PlusShooter::getPrice()) + "$", sf::Color::Green, sf::Color::Black);
+            text.setPosition(5, 480.0);
+            scoreText.setPosition(520, 480.0);
+            moneyText.setPosition(520, 480.0);
+            healthText.setPosition(520, 480.0);
+            prices.setPosition(15, 570.0);
+
             //preverja ce je kaksen enemy prisel do konca poti in ga izbrise
             for (ListManager<Enemy>::listObject* temp = enemyList.start; temp != NULL;) {
                 if (!temp->data.followPath()) { //pomeni da je na koncu poti in ga je potrebno izbrisati
@@ -136,7 +156,6 @@ int main() {
                     }
                 }
             }
-
             //preverja, ce so towerji reloadali, in ce so ustreli metke
             for (ListManager<ShooterTower>::listObject* temp = shooterList.start; temp != NULL; temp = temp->nasl) {
                 Bullet bullArr[6];
@@ -173,27 +192,27 @@ int main() {
                     if (shooterShop.isItemPressed(window.getMouseWorldLocation())) {
                         player.setMode(1);
                         selected.setPosition(shooterShop.getSprite().getPosition());
-                        std::cout << player.getMode();
+                        //std::cout << player.getMode();
                     }
                     if (diagonalShop.isItemPressed(window.getMouseWorldLocation())) {
                         player.setMode(2);
                         selected.setPosition(diagonalShop.getSprite().getPosition());
-                        std::cout << player.getMode();
+                        //std::cout << player.getMode();
                     }
                     if (plusShop.isItemPressed(window.getMouseWorldLocation())) {
                         player.setMode(3);
                         selected.setPosition(plusShop.getSprite().getPosition());
-                        std::cout << player.getMode();
+                        //std::cout << player.getMode();
                     }
                     if (cancelButton.isItemPressed(window.getMouseWorldLocation())) {
                         player.setMode(0);
                         selected.setPosition(cancelButton.getSprite().getPosition());
-                        std::cout << player.getMode();
+                        //std::cout << player.getMode();
                     }
                     if (deleteButton.isItemPressed(window.getMouseWorldLocation())) {
                         player.setMode(4);
                         selected.setPosition(deleteButton.getSprite().getPosition());
-                        std::cout << player.getMode();
+                        //std::cout << player.getMode();
                     }
                 }
 
@@ -213,7 +232,6 @@ int main() {
                                 shooterList.vnos(*s);
                                 Placeable::setProsto(window.getMouseClickLocation().y / 50, window.getMouseClickLocation().x / 50, 0);
                             }
-                            // delete s;
                             delete p;
                             delete d;
                             break;
@@ -227,7 +245,6 @@ int main() {
                             }
                             delete s;
                             delete p;
-                            // delete d;
                             break;
 
                         case 3:
@@ -238,7 +255,6 @@ int main() {
                                 Placeable::setProsto(window.getMouseClickLocation().y / 50, window.getMouseClickLocation().x / 50, 0);
                             }
                             delete s;
-                            //delete p;
                             delete d;
                             break;
                         case 4:
@@ -287,19 +303,10 @@ int main() {
                             delete p;
                             delete d;
                         }
-                        //player.setMode(0);
                     }
                 }
             }
         
-            
-            text = textSetup(text, "shop", sf::Color::Cyan, sf::Color::Black);
-            stats = textSetup(stats, " health :" + std::to_string(player.getHealth()) + " \n money: " + std::to_string(player.getMoney()) + "$\n score: " + std::to_string(player.getScore()) + "\n highscore: " + std::to_string(player.getHighscore()), sf::Color::Cyan, sf::Color::Black);
-            prices = textSetup(prices, std::to_string(ShooterTower::getPrice()) + "$ \t \t" + std::to_string(DiagonalShooter::getPrice()) + "$ \t \t" + std::to_string(PlusShooter::getPrice()) + "$", sf::Color::Yellow, sf::Color::Black);
-            text.setPosition(5, 480.0);
-            stats.setPosition(520, 480.0);
-            prices.setPosition(15, 570.0);
-
             //vnasa enemije glede na to koliko tock smo dosegli
             if (player.getScore() < 50) {
                 if (clock.getElapsedTime().asMilliseconds() > 1800) {
@@ -339,14 +346,31 @@ int main() {
                     clock.restart();
                 }
             }
-            
+            //rendering
+            window.renderList(diagonalList);
+            window.renderList(plusList);
+            window.renderList(shooterList);
+            window.renderList(enemyList);
+            window.renderList(bulletList);
+            window.renderSprite(shop);
+            window.renderText(healthText);
+            window.renderText(scoreText);
+            window.renderText(moneyText);
+            window.renderSprite(shooterShop.getSprite());
+            window.renderSprite(plusShop.getSprite());
+            window.renderSprite(diagonalShop.getSprite());
+            window.renderSprite(cancelButton.getSprite());
+            window.renderSprite(deleteButton.getSprite());
+            window.renderSprite(selected);
         }
         //za game over
         else {
-        if (clock.getElapsedTime().asMilliseconds() % 2 == 0) text = textSetup(text, "game over!", sf::Color::Red, sf::Color::Black);
-        else text = textSetup(text, "game over!", sf::Color::Black, sf::Color::Red);
-        prices = textSetup(prices, "press  space \n to play again", sf::Color::Black, sf::Color::White);
-        prices.setCharacterSize(50);
+        text = textSetup(text, "game over!", sf::Color::Black, sf::Color::Red);
+        text.setCharacterSize(52);
+        prices = textSetup(prices, "press  space to play again", sf::Color::Black, sf::Color::White);
+        prices.setCharacterSize(52);
+        text.setPosition(64, 500);
+        prices.setOutlineThickness(2);
         prices.setPosition(100, 175);
         if (window.isSpacePressed()) {
             player.resetPlayer();
@@ -358,20 +382,11 @@ int main() {
         }
     } 
         //rendering
-        window.renderList(diagonalList);
-        window.renderList(plusList);
-        window.renderList(shooterList);
-        window.renderList(enemyList);
-        window.renderList(bulletList);
+        window.renderText(healthText);
+        window.renderText(scoreText);
+        window.renderText(moneyText);
         window.renderText(text);
         window.renderText(prices);
-        window.renderText(stats);
-        window.renderSprite(shooterShop.getSprite());
-        window.renderSprite(plusShop.getSprite());
-        window.renderSprite(diagonalShop.getSprite());
-        window.renderSprite(cancelButton.getSprite());
-        window.renderSprite(deleteButton.getSprite());
-        window.renderSprite(selected);
         window.render();
     }
         return 0;

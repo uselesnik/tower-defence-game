@@ -47,7 +47,7 @@ void Window::update()
         }
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             mousePosition = sf::Mouse::getPosition(*window);
-            //std::cout << mousePosition.x  << "\t" << mousePosition.y  << "\n";
+            std::cout << mousePosition.x  << "\t" << mousePosition.y  << "\n";
             if ((mousePosition.x >= 0 && mousePosition.x <= 800) && (mousePosition.y >= 0 && mousePosition.y <= 600)) mouseClickLocation = mousePosition;
 
         }
