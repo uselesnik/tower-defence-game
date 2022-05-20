@@ -11,12 +11,11 @@
 #include "ShopItem.h"
 #include <ctime>
 
-
 sf::Text textSetup(sf::Text text, std::string printedText, sf::Color fill, sf::Color outline) {
     text.setFillColor(fill);
     text.setOutlineColor(outline);
     text.setOutlineThickness(1);
-    text.setCharacterSize(18);
+    text.setCharacterSize(24);
     text.setString(printedText);
     return text;
 }
@@ -55,7 +54,7 @@ int main() {
     sf::Clock clock;
     sf::Font font;
     sf::Text text, prices, stats;
-    font.loadFromFile("Daydream.ttf");
+    font.loadFromFile("superstar.ttf");
     text.setFont(font);
     prices.setFont(font);
     stats.setFont(font);
@@ -63,10 +62,22 @@ int main() {
 
     ShopItem shooterShop(1);
     ShopItem diagonalShop(2);
-    ShopItem plusShop(3);   
-    shooterShop.setPosition(24, 520);
-    diagonalShop.setPosition(127, 520);
-    plusShop.setPosition(240, 520);
+    ShopItem plusShop(3);  
+    ShopItem deleteButton(4);
+    ShopItem cancelButton(5);
+
+    shooterShop.setPosition(32, 536);
+    diagonalShop.setPosition(135, 536);
+    plusShop.setPosition(248, 536);
+    deleteButton.setPosition(361, 536);
+    cancelButton.setPosition(463, 536);
+
+    sf::Texture selectedTexture;
+    sf::Sprite selected;
+    selectedTexture.loadFromFile("images\\selected.png");
+    selected.setTexture(selectedTexture);
+    selected.setOrigin(24, 24);
+    selected.setPosition(cancelButton.getSprite().getPosition());
 
     ListManager<Bullet> bulletList;
     ListManager<Enemy> enemyList;
@@ -83,7 +94,7 @@ int main() {
             //preverja ce je kaksen enemy prisel do konca poti in ga izbrise
             for (ListManager<Enemy>::listObject* temp = enemyList.start; temp != NULL;) {
                 if (!temp->data.followPath()) { //pomeni da je na koncu poti in ga je potrebno izbrisati
-                    player.setHealth(player.getHealth() - temp->data.getPoints() * 2);
+                    player.setHealth(player.getHealth() - temp->data.getPoints() * 4);
                     ListManager<Enemy>::listObject* tnasl = temp->nasl;
                     bool premik = enemyList.delitefromLoop(temp);
                     if (!premik) temp = NULL;
@@ -112,8 +123,8 @@ int main() {
                             else  temp = tnasl;
                             if (tempE->data.hit(damage)) {
                                 enemyList.delite(tempE->id);
-                                player.setMoney(player.getMoney() + points * 5);
-                                player.setScore(player.getScore() + points * 2);
+                                player.setMoney(player.getMoney() + points * 3);
+                                player.setScore(player.getScore() + points);
                             }
                             jeZbrisan = 1;
                             break;
@@ -156,28 +167,53 @@ int main() {
                     }
                 }
             }
-
             //postavlja towerje
             if (window.getMouseClickLocation().x > -1 && window.getMouseClickLocation().y > -1) {
-                if (window.getMouseClickLocation().y > 440) { // pomeni da smo kliknili nekam v shopu
-                    if(shooterShop.isItemPressed(window.getMouseWorldLocation())) player.setMode(1);
-                    if (diagonalShop.isItemPressed(window.getMouseWorldLocation())) player.setMode(2);
-                    if (plusShop.isItemPressed(window.getMouseWorldLocation())) player.setMode(3);
+                if (window.getMouseClickLocation().y > 440) {// pomeni da smo kliknili nekam v shopu
+                    if (shooterShop.isItemPressed(window.getMouseWorldLocation())) {
+                        player.setMode(1);
+                        selected.setPosition(shooterShop.getSprite().getPosition());
+                        std::cout << player.getMode();
+                    }
+                    if (diagonalShop.isItemPressed(window.getMouseWorldLocation())) {
+                        player.setMode(2);
+                        selected.setPosition(diagonalShop.getSprite().getPosition());
+                        std::cout << player.getMode();
+                    }
+                    if (plusShop.isItemPressed(window.getMouseWorldLocation())) {
+                        player.setMode(3);
+                        selected.setPosition(plusShop.getSprite().getPosition());
+                        std::cout << player.getMode();
+                    }
+                    if (cancelButton.isItemPressed(window.getMouseWorldLocation())) {
+                        player.setMode(0);
+                        selected.setPosition(cancelButton.getSprite().getPosition());
+                        std::cout << player.getMode();
+                    }
+                    if (deleteButton.isItemPressed(window.getMouseWorldLocation())) {
+                        player.setMode(4);
+                        selected.setPosition(deleteButton.getSprite().getPosition());
+                        std::cout << player.getMode();
+                    }
                 }
-                else{
-                    if (Placeable::jeProsto(window.getMouseClickLocation().y / 50, window.getMouseClickLocation().x / 50)) {
-                        DiagonalShooter * d = new DiagonalShooter;
-                        PlusShooter * p = new PlusShooter;
-                        ShooterTower * s = new ShooterTower;
+
+
+                else {
+                    if (Placeable::jeProsto(window.getMouseClickLocation().y / 50, window.getMouseClickLocation().x / 50) || player.getMode() == 4) {
+                        DiagonalShooter* d = new DiagonalShooter;
+                        PlusShooter* p = new PlusShooter;
+                        ShooterTower* s = new ShooterTower;
+                        bool found = 0; //za deletanje
                         switch (player.getMode()) {
                         case 1:
+                            std::cout << "uhu";
                             if (shooterShop.buyItem(player.getMoney())) {
                                 player.setMoney(player.getMoney() - ShooterTower::getPrice());
                                 s->place(float(window.getMouseClickLocation().x / 50 * 50 + 25), float(window.getMouseClickLocation().y / 50 * 50 + 25), 500, 480);
                                 shooterList.vnos(*s);
                                 Placeable::setProsto(window.getMouseClickLocation().y / 50, window.getMouseClickLocation().x / 50, 0);
                             }
-                           // delete s;
+                            // delete s;
                             delete p;
                             delete d;
                             break;
@@ -191,7 +227,7 @@ int main() {
                             }
                             delete s;
                             delete p;
-                           // delete d;
+                            // delete d;
                             break;
 
                         case 3:
@@ -205,6 +241,46 @@ int main() {
                             //delete p;
                             delete d;
                             break;
+                        case 4:
+
+                            for (ListManager<ShooterTower>::listObject* temp = shooterList.start; temp != NULL;) {
+                                if (temp->data.getSprite().getGlobalBounds().contains(window.getMouseWorldLocation())) {
+                                    found = 1;
+                                    Placeable::setProsto(window.getMouseClickLocation().y / 50, window.getMouseClickLocation().x / 50, 1);
+                                    player.setMoney(player.getMoney() + ShooterTower::getPrice() / 2);
+                                    shooterList.delite(temp->id);
+                                    temp = NULL;
+                                }
+                                else  temp = temp->nasl;
+                            }
+                            if (found == 0) {
+                                for (ListManager<DiagonalShooter>::listObject* temp = diagonalList.start; temp != NULL;) {
+                                    if (temp->data.getSprite().getGlobalBounds().contains(window.getMouseWorldLocation())) {
+                                        found = 1;
+                                        Placeable::setProsto(window.getMouseClickLocation().y / 50, window.getMouseClickLocation().x / 50, 1);
+                                        player.setMoney(player.getMoney() + DiagonalShooter::getPrice() / 2);
+                                        diagonalList.delite(temp->id);
+                                        temp = NULL;
+                                    }
+                                    else temp = temp->nasl;
+                                }
+                            }
+                            if (found == 0) {
+                                for (ListManager<PlusShooter>::listObject* temp = plusList.start; temp != NULL;) {
+                                    if (temp->data.getSprite().getGlobalBounds().contains(window.getMouseWorldLocation())) {
+                                        found = 1;
+                                        Placeable::setProsto(window.getMouseClickLocation().y / 50, window.getMouseClickLocation().x / 50, 1);
+                                        player.setMoney(player.getMoney() + PlusShooter::getPrice() / 2);
+                                        plusList.delite(temp->id);
+                                        temp = NULL;
+                                    }
+                                    else temp = temp->nasl;
+                                }
+                            }
+                            delete s;
+                            delete p;
+                            delete d;
+                            break;
 
                         default:
                             delete s;
@@ -215,9 +291,10 @@ int main() {
                     }
                 }
             }
+        
             
-            text = textSetup(text, "shop", sf::Color::Black, sf::Color::White);
-            stats = textSetup(stats, "health :" + std::to_string(player.getHealth()) + " \n money: " + std::to_string(player.getMoney()) + "$\n score: " + std::to_string(player.getScore()) + "\n highscore: " + std::to_string(player.getHighscore()), sf::Color::Black, sf::Color::White);
+            text = textSetup(text, "shop", sf::Color::Cyan, sf::Color::Black);
+            stats = textSetup(stats, " health :" + std::to_string(player.getHealth()) + " \n money: " + std::to_string(player.getMoney()) + "$\n score: " + std::to_string(player.getScore()) + "\n highscore: " + std::to_string(player.getHighscore()), sf::Color::Cyan, sf::Color::Black);
             prices = textSetup(prices, std::to_string(ShooterTower::getPrice()) + "$ \t \t" + std::to_string(DiagonalShooter::getPrice()) + "$ \t \t" + std::to_string(PlusShooter::getPrice()) + "$", sf::Color::Yellow, sf::Color::Black);
             text.setPosition(5, 480.0);
             stats.setPosition(520, 480.0);
@@ -262,7 +339,7 @@ int main() {
                     clock.restart();
                 }
             }
-
+            
         }
         //za game over
         else {
@@ -292,8 +369,11 @@ int main() {
         window.renderSprite(shooterShop.getSprite());
         window.renderSprite(plusShop.getSprite());
         window.renderSprite(diagonalShop.getSprite());
+        window.renderSprite(cancelButton.getSprite());
+        window.renderSprite(deleteButton.getSprite());
+        window.renderSprite(selected);
         window.render();
     }
         return 0;
-    }
+    } 
 

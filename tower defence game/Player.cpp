@@ -5,7 +5,7 @@ Player::Player()
 {
 	score = 0;
 	health = 100;
-	money = 100;
+	money = 1000;
 	placingMode = 0;
 	std::fstream dat;
 	dat.open("generatedFiles\\highscore.txt", std::ios::in);

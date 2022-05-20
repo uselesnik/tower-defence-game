@@ -16,11 +16,20 @@ ShopItem::ShopItem(int x)
 		texture.loadFromFile("images\\plusTower.png");
 		cost = PlusShooter::getPrice();
 		break;
+	case 4:
+		texture.loadFromFile("images\\delete.png");
+		cost = 0;
+		break;
+	case 5:
+		texture.loadFromFile("images\\cancel.png");
+		cost = 0;
+		break;
 	default:
 		texture.loadFromFile("images\\temp.png");
-		cost = -1;
+		cost = 0;
 	}
 	sprite.setTexture(texture);
+	sprite.setOrigin(16, 16);
 }
 
 bool ShopItem::buyItem(int money)

@@ -77,7 +77,7 @@ void Enemy::setup(int i)
 	case 2:
 		this->texture.loadFromFile("images\\football.png");
 		this->sprite.setTexture(texture);
-		this->speed = 4.2;
+		this->speed = 4.6;
 		this->health = 10;
 		this->points = 5;
 		break;
