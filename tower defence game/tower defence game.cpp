@@ -71,8 +71,8 @@ int main() {
     shooterShop.setPosition(32, 536);
     diagonalShop.setPosition(120, 536);
     plusShop.setPosition(212, 536);
-    deleteButton.setPosition(281, 536);
-    cancelButton.setPosition(364, 536);
+    deleteButton.setPosition(295, 536);
+    cancelButton.setPosition(410, 536);
 
     sf::Texture selectedTexture;
     sf::Sprite selected;
@@ -100,7 +100,7 @@ int main() {
         window.update();
         if (player.getHealth() > 0) {
 
-            text = textSetup(text, "shop:", sf::Color::Cyan, sf::Color::Black);
+            text = textSetup(text, "shop: \t \t \t \t   delete: \t cancel:", sf::Color::Cyan, sf::Color::Black);
             healthText = textSetup(healthText, " health :" + std::to_string(player.getHealth()), sf::Color::Red, sf::Color::Black);
             moneyText = textSetup(moneyText, "\n money: " + std::to_string(player.getMoney()) + "$", sf::Color::Green, sf::Color::Black);
             scoreText = textSetup(scoreText, "\n\n score: " + std::to_string(player.getScore()) + "\n highscore: " + std::to_string(player.getHighscore()), sf::Color::Yellow, sf::Color::Black);
