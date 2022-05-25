@@ -378,6 +378,7 @@ int main() {
             shooterList.deliteList();
             enemyList.deliteList();
             enemyList.deliteList();
+            Placeable::initProsto();
         }
     } 
         //rendering
