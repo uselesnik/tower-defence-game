@@ -225,7 +225,6 @@ int main() {
                         bool found = 0; //za deletanje
                         switch (player.getMode()) {
                         case 1:
-                            std::cout << "uhu";
                             if (shooterShop.buyItem(player.getMoney())) {
                                 player.setMoney(player.getMoney() - ShooterTower::getPrice());
                                 s->place(float(window.getMouseClickLocation().x / 50 * 50 + 25), float(window.getMouseClickLocation().y / 50 * 50 + 25), 500, 480);
@@ -379,6 +378,8 @@ int main() {
             shooterList.deliteList();
             enemyList.deliteList();
             enemyList.deliteList();
+            Placeable::initProsto();
+            selected.setPosition(cancelButton.getSprite().getPosition());
         }
     } 
         //rendering
