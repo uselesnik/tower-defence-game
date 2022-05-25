@@ -379,6 +379,7 @@ int main() {
             enemyList.deliteList();
             enemyList.deliteList();
             Placeable::initProsto();
+            selected.setPosition(cancelButton.getSprite().getPosition());
         }
     } 
         //rendering
